@@ -1,10 +1,14 @@
 import type { NextPage } from "next";
 import { MainLayout } from "../components/layouts/mainLayout";
+import { Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 const Home: NextPage = () => {
   return (
     <MainLayout title="STDF commerce" description="AI generated product store">
-      <h1>Hello stdf commerce</h1>
+      <Typography variant="h1" color="secondary">
+        Hello stdf commerce
+      </Typography>
     </MainLayout>
   );
 };

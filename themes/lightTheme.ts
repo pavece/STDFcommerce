@@ -1,17 +1,39 @@
 import { createTheme } from "@mui/material/styles";
-import { red } from "@mui/material/colors";
+import { red, grey } from "@mui/material/colors";
 
 // Create a theme instance.
 const lightTheme = createTheme({
   palette: {
     primary: {
-      main: "#556cd6",
+      main: "#111111",
     },
     secondary: {
-      main: "#19857b",
+      main: grey[600],
     },
     error: {
-      main: red.A400,
+      main: red[500],
+    },
+  },
+  components: {
+    // Name of the component
+    MuiButton: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          fontSize: "1rem",
+          backgroundColor: "#111111",
+          color: "#ffff",
+          padding: "10px 40px",
+          borderRadius: "40px", 
+          textTransform: "none", 
+          fontWeight: "300",
+          ":hover": {
+            backgroundColor: grey[900]
+          }
+        
+        },
+      },
     },
   },
 });
