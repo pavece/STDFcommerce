@@ -5,11 +5,12 @@ import { red, grey } from "@mui/material/colors";
 const lightTheme = createTheme({
   palette: {
     primary: {
-      main: "#111111",
+      main: "#ffff",
     },
     secondary: {
-      main: grey[600],
+      main: "#111111"
     },
+    
     error: {
       main: red[500],
     },
