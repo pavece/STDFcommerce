@@ -25,7 +25,7 @@ const lightTheme = createTheme({
           fontSize: "1rem",
           backgroundColor: "#111111",
           color: "#ffff",
-          padding: "10px 40px",
+          padding: "5px 30px",
           borderRadius: "40px", 
           textTransform: "none", 
           fontWeight: "300",
