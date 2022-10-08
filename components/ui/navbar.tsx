@@ -1,22 +1,33 @@
+import Link from "next/link";
+import Image from "next/image";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 import {
   AppBar,
   Grid,
   TextField,
   Toolbar,
   InputAdornment,
+  Typography,
 } from "@mui/material";
-import { Container } from "@mui/system";
-import Image from "next/image";
-import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import Link from "next/link";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import { Typography } from "@mui/material";
 
 export const NavBar = () => {
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window,
+  });
   return (
-    <AppBar position="static" color="primary" elevation={0}>
+    <AppBar
+      position="sticky"
+      color="primary"
+      elevation={0}
+      sx={{
+        backgroundColor: trigger ? "rgba(255,255,255, 0.7)" : "white",
+        backdropFilter: "blur(20px)",
+      }}
+    >
       <Toolbar>
         <Grid container>
           <Grid item xs={6} sm={2}>
