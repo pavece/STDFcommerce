@@ -10,12 +10,17 @@ const list = [
     price: 10,
     imageUrl:
       "https://images.unsplash.com/photo-1665219242102-06b259f21517?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+    slug: "test_product",
   },
 ];
 
 const Home: NextPage = () => {
   return (
-    <MainLayout title="STDF commerce" description="AI generated product store">
+    <MainLayout
+      title="STDF commerce"
+      description="AI generated product store"
+      showSearchBar={true}
+    >
       <Categories />
       <ProductList productList={list} />
     </MainLayout>

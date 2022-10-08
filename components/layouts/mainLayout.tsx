@@ -8,6 +8,7 @@ interface Props {
   ogImageUrl?: string;
   description: string;
   children: ReactNode;
+  showSearchBar: boolean;
 }
 
 export const MainLayout: FC<Props> = ({
@@ -15,6 +16,7 @@ export const MainLayout: FC<Props> = ({
   ogImageUrl,
   description,
   children,
+  showSearchBar,
 }) => {
   return (
     <>
@@ -23,7 +25,7 @@ export const MainLayout: FC<Props> = ({
         <meta name="description" content={description} />
         {/* TODO: add SEO meta */}
       </Head>
-      <NavBar />
+      <NavBar showSearchBar={showSearchBar} />
       <SideDrawer />
       <main
         style={{

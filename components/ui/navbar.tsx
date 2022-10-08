@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { FC } from "react";
+import NextLink from "next/link";
 import Image from "next/image";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import {
@@ -8,15 +9,19 @@ import {
   Toolbar,
   InputAdornment,
   Typography,
+  Link,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 
-export const NavBar = () => {
+interface Props {
+  showSearchBar: boolean;
+}
+
+export const NavBar: FC<Props> = ({ showSearchBar }) => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
-    target: window,
   });
   return (
     <AppBar
@@ -31,7 +36,16 @@ export const NavBar = () => {
       <Toolbar>
         <Grid container>
           <Grid item xs={6} sm={2}>
-            <Image src="/logo.svg" alt="logo" height={80} width={150}></Image>
+            <NextLink passHref href="/">
+              <Link>
+                <Image
+                  src="/logo.svg"
+                  alt="logo"
+                  height={80}
+                  width={150}
+                ></Image>
+              </Link>
+            </NextLink>
           </Grid>
           <Grid
             item
@@ -47,20 +61,22 @@ export const NavBar = () => {
               justifyContent: "center",
             }}
           >
-            <TextField
-              placeholder="Search Products"
-              fullWidth={true}
-              sx={{
-                maxWidth: "600px",
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon></SearchIcon>
-                  </InputAdornment>
-                ),
-              }}
-            ></TextField>
+            {showSearchBar ? (
+              <TextField
+                placeholder="Search Products"
+                fullWidth={true}
+                sx={{
+                  maxWidth: "600px",
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon></SearchIcon>
+                    </InputAdornment>
+                  ),
+                }}
+              ></TextField>
+            ) : null}
           </Grid>
           <Grid
             item
@@ -74,6 +90,7 @@ export const NavBar = () => {
           >
             <Link href="">
               <ShoppingCartRoundedIcon
+                color="secondary"
                 sx={{
                   width: "30px",
                   height: "30px",
