@@ -2,14 +2,16 @@ import React, { FC } from "react";
 import { Button, Typography } from "@mui/material";
 
 import { grey } from "@mui/material/colors";
+import Link from "next/link";
 
 interface Props {
   imageUrl: string;
   title: string;
   price: number;
+  slug: string;
 }
 
-export const ProductCard: FC<Props> = ({ imageUrl, title, price }) => {
+export const ProductCard: FC<Props> = ({ imageUrl, title, price, slug }) => {
   return (
     <div
       style={{
@@ -17,7 +19,7 @@ export const ProductCard: FC<Props> = ({ imageUrl, title, price }) => {
         height: "auto",
         width: "100%",
         borderRadius: "20px",
-        padding: "2vh 1vw",
+        padding: "20px 20px",
         boxShadow: "2px 3px 4px 2px #0404040d",
         margin: "0 auto",
         backgroundColor: grey[200],
@@ -55,13 +57,15 @@ export const ProductCard: FC<Props> = ({ imageUrl, title, price }) => {
           ${price}
         </Typography>
 
-        <Button
-          sx={{
-            mt: "20px",
-          }}
-        >
-          View more
-        </Button>
+        <Link href={`product/${slug}`}>
+          <Button
+            sx={{
+              mt: "20px",
+            }}
+          >
+            View more
+          </Button>
+        </Link>
       </div>
     </div>
   );

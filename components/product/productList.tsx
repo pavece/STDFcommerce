@@ -27,6 +27,7 @@ export const ProductList: FC<Props> = ({ productList }) => {
               price={product.price}
               title={product.title}
               imageUrl={product.imageUrl}
+              slug={product.slug}
             />
           </Grid>
         );
