@@ -8,9 +8,9 @@ const lightTheme = createTheme({
       main: "#ffff",
     },
     secondary: {
-      main: "#111111"
+      main: "#111111",
     },
-    
+
     error: {
       main: red[500],
     },
@@ -26,13 +26,15 @@ const lightTheme = createTheme({
           backgroundColor: "#111111",
           color: "#ffff",
           padding: "5px 30px",
-          borderRadius: "40px", 
-          textTransform: "none", 
+          borderRadius: "40px",
+          textTransform: "none",
           fontWeight: "300",
           ":hover": {
-            backgroundColor: grey[900]
-          }
-        
+            backgroundColor: grey[900],
+          },
+        },
+        disabled: {
+          color: "#ffff",
         },
       },
     },
