@@ -26,7 +26,7 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
   return (
     <AppBar
       position="sticky"
-      color="primary"
+      color="secondary"
       elevation={0}
       sx={{
         backgroundColor: trigger ? "rgba(255,255,255, 0.7)" : "white",
@@ -90,7 +90,7 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
           >
             <Link href="">
               <ShoppingCartRoundedIcon
-                color="secondary"
+                color="primary"
                 sx={{
                   width: "30px",
                   height: "30px",

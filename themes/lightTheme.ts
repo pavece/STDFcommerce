@@ -5,10 +5,10 @@ import { red, grey } from "@mui/material/colors";
 const lightTheme = createTheme({
   palette: {
     primary: {
-      main: "#ffff",
+      main: "#111111",
     },
     secondary: {
-      main: "#111111",
+      main: "#ffff",
     },
 
     error: {
@@ -32,9 +32,6 @@ const lightTheme = createTheme({
           ":hover": {
             backgroundColor: grey[900],
           },
-        },
-        disabled: {
-          color: "#ffff",
         },
       },
     },

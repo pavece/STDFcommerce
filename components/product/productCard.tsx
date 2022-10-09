@@ -40,7 +40,7 @@ export const ProductCard: FC<Props> = ({ imageUrl, title, price, slug }) => {
         <Typography
           variant="h6"
           fontSize={18}
-          color="secondary"
+          color="primary"
           fontWeight={400}
         >
           {title}
@@ -48,7 +48,7 @@ export const ProductCard: FC<Props> = ({ imageUrl, title, price, slug }) => {
         <Typography
           variant="h6"
           fontSize={18}
-          color="secondary"
+          color="primary"
           fontWeight={200}
           sx={{
             mt: "5px",
