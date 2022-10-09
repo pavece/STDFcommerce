@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Container } from "@mui/system";
 import { Typography, Button } from "@mui/material";
+import { Counter } from "../ui/counter";
 
 interface Props {
   title: string;
@@ -23,8 +24,12 @@ const ProductInfo: FC<Props> = ({ title, price, description, available }) => {
       >
         ${price}
       </Typography>
-      {/* counter */}
-      <Button fullWidth sx={{ mb: "30px", }}>
+      <Counter
+        initialValue={1}
+        maxValue={10}
+        getValue={(value) => console.log(value)}
+      ></Counter>
+      <Button fullWidth sx={{ mb: "30px" }}>
         {available ? "Add to cart" : "Not available"}
       </Button>
       <Typography variant="h5" component="h5">

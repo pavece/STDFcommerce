@@ -2,6 +2,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import Image from "next/image";
 import { red } from "@mui/material/colors";
+import { Counter } from "../ui/counter";
 
 export const CartProduct = () => {
   return (
@@ -22,7 +23,11 @@ export const CartProduct = () => {
       </Grid>
       <Grid item xs={6}>
         <Typography>Product title</Typography>
-        {/* q selector */}
+        <Counter
+          initialValue={1}
+          maxValue={10}
+          getValue={(value) => console.log(value)}
+        />
         <Typography
           sx={{
             textDecoration: "underline",
