@@ -24,6 +24,7 @@ const ProductPage = ({ product }: { product: IProduct }) => {
             description={product.description}
             price={product.price}
             available={false}
+            product={product}
           />
         </Grid>
       </Grid>

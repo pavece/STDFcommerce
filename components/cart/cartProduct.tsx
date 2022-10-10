@@ -4,7 +4,7 @@ import Image from "next/image";
 import { red } from "@mui/material/colors";
 import { Counter } from "../ui/counter";
 
-export const CartProduct = () => {
+export const CartProduct = ({ showControls }: { showControls: boolean }) => {
   return (
     <Grid
       container
@@ -23,20 +23,24 @@ export const CartProduct = () => {
       </Grid>
       <Grid item xs={6}>
         <Typography>Product title</Typography>
-        <Counter
-          initialValue={1}
-          maxValue={10}
-          getValue={(value) => console.log(value)}
-        />
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            color: red[300],
-            cursor: "pointer",
-          }}
-        >
-          Remove
-        </Typography>
+        {showControls ? (
+          <>
+            <Counter
+              initialValue={1}
+              maxValue={10}
+              getValue={(value) => console.log(value)}
+            />
+            <Typography
+              sx={{
+                textDecoration: "underline",
+                color: red[300],
+                cursor: "pointer",
+              }}
+            >
+              Remove
+            </Typography>
+          </>
+        ) : null}
       </Grid>
       <Grid item xs={4}>
         <Typography>$100</Typography>

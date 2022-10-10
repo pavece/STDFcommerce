@@ -3,9 +3,10 @@ import React, { FC } from "react";
 import { Grid } from "@mui/material";
 import { ProductCard } from "./productCard";
 import { ProductShort } from "../../interfaces/productShort";
+import IProduct from "../../interfaces/product";
 
 interface Props {
-  productList: ProductShort[];
+  productList: IProduct[];
 }
 
 export const ProductList: FC<Props> = ({ productList }) => {
@@ -26,7 +27,7 @@ export const ProductList: FC<Props> = ({ productList }) => {
             <ProductCard
               price={product.price}
               title={product.title}
-              imageUrl={product.imageUrl}
+              imageUrl={product.images[0]}
               slug={product.slug}
             />
           </Grid>

@@ -11,14 +11,18 @@ const CartPage = () => {
       description="View your cart"
       showSearchBar={false}
     >
-      <Typography component="h1" variant="h3" sx={{
-        mb: "30px"
-      }}>
+      <Typography
+        component="h1"
+        variant="h3"
+        sx={{
+          mb: "30px",
+        }}
+      >
         Cart
       </Typography>
       <Grid container>
         <Grid item xs={12} md={8}>
-          <CartProductList />
+          <CartProductList showControls />
         </Grid>
         <Grid item xs={12} md={4}>
           <CartSummary />
