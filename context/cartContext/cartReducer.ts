@@ -1,8 +1,8 @@
 import { cartState } from "./cartProvider";
 
-import IProduct from "../../interfaces/product";
+import { ICartProduct } from "../../interfaces/cartProduct";
 
-type cartType = { type: "cart - Add To Cart"; payload: IProduct[] };
+type cartType = { type: "cart - Add To Cart"; payload: ICartProduct[] };
 
 export const cartReducer = (state: cartState, action: cartType): cartState => {
   switch (action.type) {

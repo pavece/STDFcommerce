@@ -3,6 +3,7 @@ import { useReducer } from "react";
 import { cartReducer } from "./cartReducer";
 import { CartContext } from "./cartContext";
 import { FC, ReactNode } from "react";
+import { ICartProduct } from "../../interfaces/cartProduct";
 
 const cartInitialState = {
   cart: [],
@@ -14,7 +15,7 @@ const cartInitialState = {
 };
 
 export interface cartState {
-  cart: IProduct[];
+  cart: ICartProduct[];
   numberOfItems: number;
   totalPrice: number;
   fee: number;
@@ -29,7 +30,7 @@ interface Props {
 export const CartProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState);
 
-  const addProductToCart = (product: IProduct) => {
+  const addProductToCart = (product: ICartProduct) => {
     const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     if (!localCart[0]) {

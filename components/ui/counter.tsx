@@ -29,7 +29,7 @@ export const Counter = ({
       <RemoveCircleRoundedIcon
         onClick={() => {
           setValue(value > 1 ? value - 1 : value);
-          getValue(value);
+          getValue(value == 1 ? value : value - 1);
         }}
         sx={{
           margin: "0 20px 0 0",
@@ -47,7 +47,7 @@ export const Counter = ({
         }}
         onClick={() => {
           setValue(value < maxValue ? value + 1 : value);
-          getValue(value);
+          getValue(value == maxValue ? value : value + 1);
         }}
       />
     </Box>

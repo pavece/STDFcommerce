@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import { Container } from "@mui/system";
 import { Typography, Button } from "@mui/material";
 import { Counter } from "../ui/counter";
@@ -21,6 +21,9 @@ const ProductInfo: FC<Props> = ({
   product,
 }) => {
   const cart = useContext(CartContext);
+
+  const [quantity, setQuantity] = useState(1);
+
   return (
     <Container>
       <Typography variant="h1" component="h1" fontSize={45}>
@@ -37,13 +40,18 @@ const ProductInfo: FC<Props> = ({
       <Counter
         initialValue={1}
         maxValue={10}
-        getValue={(value) => console.log(value)}
+        getValue={(value) => setQuantity(value)}
       ></Counter>
       <Button
         fullWidth
         sx={{ mb: "30px" }}
         onClick={() => {
-          cart.addProductToCart(product);
+          cart.addProductToCart({
+            title,
+            slug: product.slug,
+            image: product.images[0],
+            quantity,
+          });
         }}
       >
         {available ? "Add to cart" : "Not available"}
