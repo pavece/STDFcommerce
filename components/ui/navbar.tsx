@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import NextLink from "next/link";
 import Image from "next/image";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import { UiContext } from "../../context/uiContext/uiContext";
 
 interface Props {
   showSearchBar: boolean;
@@ -23,6 +24,8 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
     disableHysteresis: true,
     threshold: 0,
   });
+  const interfaceContext = useContext(UiContext);
+
   return (
     <AppBar
       position="sticky"
@@ -103,6 +106,7 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
               sx={{
                 cursor: "pointer",
               }}
+              onClick={() => interfaceContext.uiOpenSideMenu()}
             >
               Menu
             </Typography>
