@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local
 
+
 # vercel
 .vercel
 
@@ -37,3 +38,4 @@ next-env.d.ts
 
 #mongo db
 /mongo
+
