@@ -9,6 +9,7 @@ export interface cartContextProps {
   total: number;
   isLoaded: boolean;
   addProductToCart: (product: ICartProduct) => void;
+  removeProductFromCart: (slug: string) => void;
 }
 
 export const CartContext = createContext({} as cartContextProps);

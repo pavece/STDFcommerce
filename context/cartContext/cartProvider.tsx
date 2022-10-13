@@ -44,8 +44,27 @@ export const CartProvider: FC<Props> = ({ children }) => {
     if (!localCart[0]) {
       localStorage.setItem("cart", JSON.stringify([product]));
     } else {
-      localCart.push(product);
-      localStorage.setItem("cart", JSON.stringify(localCart));
+      if (
+        localCart.some((element: ICartProduct) => element.slug === product.slug)
+      ) {
+        const col = localCart.filter((element: ICartProduct) => {
+          return element.slug == product.slug;
+        });
+
+        const duplicatedElementIndex = localCart.indexOf(col[0]);
+
+        const duplicateElement: ICartProduct =
+          localCart[duplicatedElementIndex];
+
+        localCart[duplicatedElementIndex] = {
+          ...duplicateElement,
+          quantity: duplicateElement.quantity + product.quantity,
+        };
+        localStorage.setItem("cart", JSON.stringify(localCart));
+      } else {
+        localCart.push(product);
+        localStorage.setItem("cart", JSON.stringify(localCart));
+      }
     }
 
     dispatch({
@@ -61,10 +80,14 @@ export const CartProvider: FC<Props> = ({ children }) => {
       (element: ICartProduct) => element.slug === slug
     );
     currentCart.splice(currentCart.indexOf(productToDelete), 1);
+    localStorage.setItem("cart", JSON.stringify(currentCart));
+    dispatch({ type: "cart - Remove From Cart", payload: currentCart });
   };
 
   return (
-    <CartContext.Provider value={{ ...state, addProductToCart }}>
+    <CartContext.Provider
+      value={{ ...state, addProductToCart, removeProductFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );

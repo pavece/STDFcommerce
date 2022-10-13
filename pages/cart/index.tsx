@@ -4,9 +4,18 @@ import { CartProductList } from "../../components/cart/cartProductList";
 import { Grid, Typography } from "@mui/material";
 import { CartSummary } from "../../components/cart/cartSummary";
 import { CartContext } from "../../context/cartContext/cartContext";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const CartPage = () => {
   const cartContext = useContext(CartContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (cartContext.cart.length === 0 && cartContext.isLoaded) {
+      router.replace("/cart/empty");
+    }
+  }, [cartContext.cart]);
 
   return (
     <MainLayout

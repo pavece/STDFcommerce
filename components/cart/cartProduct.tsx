@@ -4,6 +4,8 @@ import Image from "next/image";
 import { red } from "@mui/material/colors";
 import { Counter } from "../ui/counter";
 import { ICartProduct } from "../../interfaces/cartProduct";
+import { useContext } from 'react';
+import { CartContext } from '../../context/cartContext/cartContext';
 
 export const CartProduct = ({
   showControls,
@@ -12,6 +14,9 @@ export const CartProduct = ({
   showControls: boolean;
   product: ICartProduct;
 }) => {
+
+  const cartContext = useContext(CartContext);
+
   return (
     <Grid
       container
@@ -38,6 +43,7 @@ export const CartProduct = ({
               getValue={(value) => console.log(value)}
             />
             <Typography
+              onClick={() => {cartContext.removeProductFromCart(product.slug)}}
               sx={{
                 textDecoration: "underline",
                 color: red[300],

@@ -50,6 +50,7 @@ const ProductInfo: FC<Props> = ({
             title,
             slug: product.slug,
             image: product.images[0],
+            price: product.price,
             quantity,
           });
         }}
