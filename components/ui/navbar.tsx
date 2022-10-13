@@ -91,7 +91,7 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
               justifyContent: "end",
             }}
           >
-            <Link href="">
+            <Link href="/cart">
               <ShoppingCartRoundedIcon
                 color="primary"
                 sx={{

@@ -2,7 +2,7 @@ import IProduct from "../../interfaces/product";
 import { useReducer } from "react";
 import { cartReducer } from "./cartReducer";
 import { CartContext } from "./cartContext";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import { ICartProduct } from "../../interfaces/cartProduct";
 
 const cartInitialState = {
@@ -30,6 +30,14 @@ interface Props {
 export const CartProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState);
 
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    dispatch({
+      type: "cart - Load Cart",
+      payload: cart,
+    });
+  }, []);
+
   const addProductToCart = (product: ICartProduct) => {
     const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
@@ -44,6 +52,15 @@ export const CartProvider: FC<Props> = ({ children }) => {
       type: "cart - Add To Cart",
       payload: [...state.cart, product],
     });
+  };
+
+  const removeProductFromCart = (slug: string) => {
+    let currentCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    const productToDelete = currentCart.filter(
+      (element: ICartProduct) => element.slug === slug
+    );
+    currentCart.splice(currentCart.indexOf(productToDelete), 1);
   };
 
   return (

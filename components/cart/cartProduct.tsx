@@ -3,8 +3,15 @@ import React from "react";
 import Image from "next/image";
 import { red } from "@mui/material/colors";
 import { Counter } from "../ui/counter";
+import { ICartProduct } from "../../interfaces/cartProduct";
 
-export const CartProduct = ({ showControls }: { showControls: boolean }) => {
+export const CartProduct = ({
+  showControls,
+  product,
+}: {
+  showControls: boolean;
+  product: ICartProduct;
+}) => {
   return (
     <Grid
       container
@@ -15,14 +22,14 @@ export const CartProduct = ({ showControls }: { showControls: boolean }) => {
     >
       <Grid item xs={2}>
         <Image
-          src="https://images.unsplash.com/photo-1665219242102-06b259f21517?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-          alt="product image"
+          src={product.image}
+          alt={product.title}
           width={200}
           height={150}
         ></Image>
       </Grid>
       <Grid item xs={6}>
-        <Typography>Product title</Typography>
+        <Typography>{product.title}</Typography>
         {showControls ? (
           <>
             <Counter
@@ -43,7 +50,7 @@ export const CartProduct = ({ showControls }: { showControls: boolean }) => {
         ) : null}
       </Grid>
       <Grid item xs={4}>
-        <Typography>$100</Typography>
+        <Typography>${product.price}</Typography>
       </Grid>
     </Grid>
   );

@@ -1,6 +1,7 @@
 export interface ICartProduct {
-    title: string;
-    slug: string;
-    image: string;
-    quantity: number;
+  title: string;
+  slug: string;
+  image: string;
+  quantity: number;
+  price: number;
 }

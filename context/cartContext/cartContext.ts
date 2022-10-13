@@ -1,6 +1,5 @@
 import { createContext } from "react";
-import IProduct from "../../interfaces/product";
-import { ICartProduct } from '../../interfaces/cartProduct';
+import { ICartProduct } from "../../interfaces/cartProduct";
 
 export interface cartContextProps {
   cart: ICartProduct[];

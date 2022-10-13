@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MainLayout } from "../../components/layouts/mainLayout";
 import { CartProductList } from "../../components/cart/cartProductList";
 import { Grid, Typography } from "@mui/material";
 import { CartSummary } from "../../components/cart/cartSummary";
+import { CartContext } from "../../context/cartContext/cartContext";
 
 const CartPage = () => {
+  const cartContext = useContext(CartContext);
+
   return (
     <MainLayout
       title="STDF - Cart"
@@ -22,7 +25,7 @@ const CartPage = () => {
       </Typography>
       <Grid container>
         <Grid item xs={12} md={8}>
-          <CartProductList showControls />
+          <CartProductList showControls products={cartContext.cart} />
         </Grid>
         <Grid item xs={12} md={4}>
           <CartSummary />
