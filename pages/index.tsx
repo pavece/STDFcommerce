@@ -3,12 +3,8 @@ import type { NextPage } from "next";
 import { MainLayout } from "../components/layouts/mainLayout";
 import { Categories } from "../components/ui/categories";
 import { ProductList } from "../components/product/productList";
-import { testProducts } from "../testProducts";
 import { GetStaticProps } from "next";
-import axios from "axios";
 import IProduct from "../interfaces/product";
-import { connect, disconnect } from "../db/db";
-import { Product } from "../models/productModel";
 import { getAllProducts } from "../db/functions/getAllProducts";
 
 interface Props {
