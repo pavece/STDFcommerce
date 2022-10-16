@@ -3,8 +3,11 @@ import React from "react";
 import { CartProductList } from "../../components/cart/cartProductList";
 import { CheckoutSummary } from "../../components/checkout/checkoutSummary";
 import { MainLayout } from "../../components/layouts/mainLayout";
+import { useContext } from "react";
+import { CartContext } from "../../context/cartContext/cartContext";
 
-const index = () => {
+const Index = () => {
+  const cartContext = useContext(CartContext);
   return (
     <MainLayout
       title="STDF - Checkout"
@@ -16,7 +19,7 @@ const index = () => {
       </Typography>
       <Grid container>
         <Grid item xs={12} md={7}>
-          <CartProductList showControls={false} />
+          <CartProductList showControls={false} products={cartContext.cart} />
         </Grid>
         <Grid item xs={12} md={5}>
           <CheckoutSummary />
@@ -26,4 +29,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

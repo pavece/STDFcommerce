@@ -55,6 +55,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     description: "test description",
     slug: "test_product",
     available: true,
+    category: "furniture",
   };
 
   return {

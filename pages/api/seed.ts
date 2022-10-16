@@ -26,7 +26,7 @@ export default async function handler(
     }
   } else {
     res
-      .status(401)
+      .status(403)
       .json({ status: "This operation is not allowed in production mode" });
   }
 }
