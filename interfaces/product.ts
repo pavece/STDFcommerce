@@ -5,4 +5,5 @@ export default interface IProduct {
   description: string;
   slug: string;
   available: boolean;
+  category: "technology" | "tools" | "furniture";
 }

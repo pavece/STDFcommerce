@@ -15,7 +15,7 @@ export const Counter = ({
   maxValue: number;
   getValue: (arg0: number) => void;
 }) => {
-  const [value, setValue] = useState(initialValue | 1);
+  const [value, setValue] = useState(initialValue);
   return (
     <Box
       sx={{

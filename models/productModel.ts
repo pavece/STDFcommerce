@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   description: { type: String, required: true },
   slug: { type: String, required: true },
   available: { type: Boolean, required: true },
+  category: { type: String, required: true },
 });
 
 productSchema.index({ title: "text" });

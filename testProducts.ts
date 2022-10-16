@@ -1,32 +1,49 @@
-export const testProducts = [
+import IProduct from "./interfaces/product";
+export const testProducts: IProduct[] = [
   {
-    images: [
-      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    ],
-    title: "test product 01",
+    images: ["/productImages/crate01.png"],
+    title: "Modern wooden crate",
+    price: 56,
+    description: "This wooden crate is a very special wooden crate",
+    slug: "modern_wooden_crate",
+    available: true,
+    category: "furniture",
+  },
+  {
+    images: ["/productImages/crate02.png"],
+    title: "Normal wooden crate",
+    price: 40,
+    description: "This wooden crate is a pretty normal wooden crate",
+    slug: "normal_wooden_crate",
+    available: true,
+    category: "technology",
+  },
+  {
+    images: ["/productImages/toolbox01.png"],
+    title: "Small toolbox",
     price: 130,
-    description: "test description",
-    slug: "test_product_01",
+    description: "Toolbox full of spare use tools",
+    slug: "small_toolbox",
     available: true,
+    category: "tools",
   },
   {
-    images: [
-      "https://images.unsplash.com/photo-1494905998402-395d579af36f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    ],
-    title: "test product 02",
-    price: 140,
-    description: "test description",
-    slug: "test_product_02",
+    images: ["/productImages/toolbox02.png"],
+    title: "Red toolbox",
+    price: 98,
+    description: "Toolbox full of daily use tools",
+    slug: "red_toolbox",
     available: true,
+    category: "tools",
   },
   {
-    images: [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    ],
-    title: "test product 03",
-    price: 150,
-    description: "test description",
-    slug: "test_product_03",
-    available: false,
+    images: ["/productImages/tech01.png"],
+    title: "Phone and watch kit",
+    price: 450,
+    description:
+      "Wanna get started with some tech products, why not get a good phone and smartwatch ?",
+    slug: "phone_and_clock",
+    available: true,
+    category: "technology",
   },
 ];
