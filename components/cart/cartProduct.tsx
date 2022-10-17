@@ -43,7 +43,7 @@ export const CartProduct = ({
             />
             <Typography
               onClick={() => {
-                cartContext.removeProductFromCart(product.slug);
+                cartContext.removeProductFromCart(product);
               }}
               sx={{
                 textDecoration: "underline",

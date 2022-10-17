@@ -9,7 +9,7 @@ export interface cartContextProps {
   total: number;
   isLoaded: boolean;
   addProductToCart: (product: ICartProduct) => void;
-  removeProductFromCart: (slug: string) => void;
+  removeProductFromCart: (product: ICartProduct) => void;
   updateProductCount: (count: number, productSlug: string) => void;
 }
 

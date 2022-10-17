@@ -32,74 +32,75 @@ export const CartProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    let totalPrice = 0;
-
-    const prices = cart.map((product: ICartProduct) => {
-      totalPrice += product.price * product.quantity;
-      return product.price * product.quantity;
-    });
-
     dispatch({
       type: "cart - Load Cart",
-      payload: { cart, totalPrice },
+      payload: cart,
     });
   }, []);
 
-  const addProductToCart = (product: ICartProduct) => {
-    const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+  useEffect(() => {
+    if (state.cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+    }
+    console.log(state.cart);
+  }, [state.cart]);
 
-    if (!localCart[0]) {
-      localStorage.setItem("cart", JSON.stringify([product]));
-    } else {
-      if (
-        localCart.some((element: ICartProduct) => element.slug === product.slug)
-      ) {
-        const col = localCart.filter((element: ICartProduct) => {
-          return element.slug == product.slug;
-        });
-
-        const duplicatedElementIndex = localCart.indexOf(col[0]);
-
-        const duplicateElement: ICartProduct =
-          localCart[duplicatedElementIndex];
-
-        localCart[duplicatedElementIndex] = {
-          ...duplicateElement,
-          quantity: duplicateElement.quantity + product.quantity,
-        };
-        localStorage.setItem("cart", JSON.stringify(localCart));
-      } else {
-        localCart.push(product);
-        localStorage.setItem("cart", JSON.stringify(localCart));
-      }
+  useEffect(() => {
+    let totalPrice = 0;
+    for (const product of state.cart) {
+      totalPrice += product.price * product.quantity;
     }
 
     dispatch({
-      type: "cart - Add To Cart",
-      payload: [...state.cart, product],
+      type: "cart - Update General Values",
+      payload: { totalPrice, totalCount: 0 },
     });
+  }, [state.cart]);
+
+  const addProductToCart = (product: ICartProduct) => {
+    const products = state.cart;
+
+    if (
+      products.some((element: ICartProduct) => element.slug === product.slug)
+    ) {
+      const col = products.filter((element: ICartProduct) => {
+        return element.slug == product.slug;
+      });
+      const duplicatedElementIndex = products.indexOf(col[0]);
+      const duplicateElement: ICartProduct = products[duplicatedElementIndex];
+
+      products[duplicatedElementIndex] = {
+        ...duplicateElement,
+        quantity: duplicateElement.quantity + product.quantity,
+      };
+
+      dispatch({
+        type: "cart - Add To Cart",
+        payload: products,
+      });
+    } else {
+      dispatch({
+        type: "cart - Add To Cart",
+        payload: [...products, product],
+      });
+    }
   };
 
-  const removeProductFromCart = (slug: string) => {
-    let currentCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-    const productToDelete = currentCart.filter(
-      (element: ICartProduct) => element.slug === slug
-    );
-    currentCart.splice(currentCart.indexOf(productToDelete), 1);
-    localStorage.setItem("cart", JSON.stringify(currentCart));
-    dispatch({ type: "cart - Remove From Cart", payload: currentCart });
+  const removeProductFromCart = (product: ICartProduct) => {
+    if (state.cart.length == 1) {
+      localStorage.setItem("cart", JSON.stringify([]));
+    }
+    dispatch({ type: "cart - Remove From Cart", payload: product });
   };
 
   const updateProductCount = (count: number, productSlug: string) => {
-    const currentCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const currentCart = state.cart;
     const updatedCart = currentCart.map((element: ICartProduct) => {
       if (element.slug === productSlug) {
         return { ...element, quantity: count };
       }
       return element;
     });
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
     dispatch({ type: "cart - Update Product Count", payload: updatedCart });
   };
 

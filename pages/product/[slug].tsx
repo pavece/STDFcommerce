@@ -35,7 +35,6 @@ const ProductPage = ({ product }: { product: IProduct }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  //TODO: Implement endpoint in order to get all the product IDS
   const slugs = await getSlugs();
 
   return {
