@@ -37,7 +37,7 @@ const CartPage = () => {
           <CartProductList showControls products={cartContext.cart} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <CartSummary />
+          <CartSummary totalPrice={cartContext.totalPrice} />
         </Grid>
       </Grid>
     </MainLayout>

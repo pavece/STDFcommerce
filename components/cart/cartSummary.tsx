@@ -3,7 +3,7 @@ import { Box, Container } from "@mui/system";
 import React from "react";
 import { grey } from "@mui/material/colors";
 
-export const CartSummary = () => {
+export const CartSummary = ({ totalPrice }: { totalPrice: number }) => {
   return (
     <Container
       sx={{
@@ -44,7 +44,7 @@ export const CartSummary = () => {
         </Typography>
       </Box>
       <Typography component="h1" variant="h1" fontSize={30} sx={{ mb: "20px" }}>
-        Subtotal: $190
+        Subtotal: {totalPrice}
       </Typography>
       <Button fullWidth>Checkout</Button>
     </Container>

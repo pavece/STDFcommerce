@@ -1,8 +1,7 @@
-import IProduct from "../../interfaces/product";
 import { useReducer } from "react";
 import { cartReducer } from "./cartReducer";
 import { CartContext } from "./cartContext";
-import { FC, ReactNode, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { ICartProduct } from "../../interfaces/cartProduct";
 
 const cartInitialState = {
@@ -32,9 +31,17 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    let totalPrice = 0;
+
+    const prices = cart.map((product: ICartProduct) => {
+      totalPrice += product.price * product.quantity;
+      return product.price * product.quantity;
+    });
+
     dispatch({
       type: "cart - Load Cart",
-      payload: cart,
+      payload: { cart, totalPrice },
     });
   }, []);
 
@@ -84,9 +91,26 @@ export const CartProvider: FC<Props> = ({ children }) => {
     dispatch({ type: "cart - Remove From Cart", payload: currentCart });
   };
 
+  const updateProductCount = (count: number, productSlug: string) => {
+    const currentCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const updatedCart = currentCart.map((element: ICartProduct) => {
+      if (element.slug === productSlug) {
+        return { ...element, quantity: count };
+      }
+      return element;
+    });
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    dispatch({ type: "cart - Update Product Count", payload: updatedCart });
+  };
+
   return (
     <CartContext.Provider
-      value={{ ...state, addProductToCart, removeProductFromCart }}
+      value={{
+        ...state,
+        addProductToCart,
+        removeProductFromCart,
+        updateProductCount,
+      }}
     >
       {children}
     </CartContext.Provider>

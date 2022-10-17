@@ -39,7 +39,7 @@ export const CartProduct = ({
             <Counter
               initialValue={product.quantity}
               maxValue={10}
-              getValue={(value) => console.log(value)}
+              getValue={(value) => cartContext.updateProductCount(value, product.slug)}
             />
             <Typography
               onClick={() => {
