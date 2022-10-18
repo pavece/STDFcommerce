@@ -14,6 +14,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { UiContext } from "../../context/uiContext/uiContext";
+import { SearchBar } from "./searchBar";
 
 interface Props {
   showSearchBar: boolean;
@@ -64,22 +65,7 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
               justifyContent: "center",
             }}
           >
-            {showSearchBar ? (
-              <TextField
-                placeholder="Search Products"
-                fullWidth={true}
-                sx={{
-                  maxWidth: "600px",
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon></SearchIcon>
-                    </InputAdornment>
-                  ),
-                }}
-              ></TextField>
-            ) : null}
+            {showSearchBar ? <SearchBar></SearchBar> : null}
           </Grid>
           <Grid
             item

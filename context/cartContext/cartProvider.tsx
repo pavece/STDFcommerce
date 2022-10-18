@@ -42,7 +42,6 @@ export const CartProvider: FC<Props> = ({ children }) => {
     if (state.cart.length > 0) {
       localStorage.setItem("cart", JSON.stringify(state.cart));
     }
-    console.log(state.cart);
   }, [state.cart]);
 
   useEffect(() => {

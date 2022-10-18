@@ -57,7 +57,7 @@ export const ProductCard: FC<Props> = ({ imageUrl, title, price, slug }) => {
           ${price}
         </Typography>
 
-        <Link href={`product/${slug}`}>
+        <Link href={`/product/${slug}`}>
           <Button
             sx={{
               mt: "20px",
