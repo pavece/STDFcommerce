@@ -16,7 +16,7 @@ export const testProducts: IProduct[] = [
     description: "This wooden crate is a pretty normal wooden crate",
     slug: "normal_wooden_crate",
     available: true,
-    category: "technology",
+    category: "furniture",
   },
   {
     images: ["/productImages/toolbox01.png"],

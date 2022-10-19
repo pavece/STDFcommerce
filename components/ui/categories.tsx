@@ -13,9 +13,9 @@ export const Categories = () => {
         flexWrap: "wrap",
       }}
     >
-      <Category href="/cat1">Cat 1</Category>
-      <Category href="/cat2">Cat 2</Category>
-      <Category href="/cat3">Cat 3</Category>
+      <Category href="/category/tools">Tools</Category>
+      <Category href="/category/furniture">Furniture</Category>
+      <Category href="/category/technology">Technology</Category>
     </Container>
   );
 };

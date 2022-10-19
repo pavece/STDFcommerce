@@ -16,3 +16,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.category-selector:hover {
+  background-color: rgba(85, 85, 85, 0.212);
+  transition: background-color .3s;
+}

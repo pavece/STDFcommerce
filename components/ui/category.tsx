@@ -18,10 +18,11 @@ export const Category: FC<Props> = ({ children, href }) => {
           alignItems: "center",
           justifyContent: "center",
           margin: "10px 20px",
-          backgroundColor: grey[900],
-          color: "#ffff",
+          border: "1px solid black",
           cursor: "pointer",
+          transition: "background-color .3s",
         }}
+        className="category-selector"
       >
         {children}
       </div>
