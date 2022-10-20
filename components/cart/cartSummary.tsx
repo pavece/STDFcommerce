@@ -2,6 +2,7 @@ import { Button, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import { grey } from "@mui/material/colors";
+import Link from "next/link";
 
 export const CartSummary = ({ totalPrice }: { totalPrice: number }) => {
   return (
@@ -46,7 +47,9 @@ export const CartSummary = ({ totalPrice }: { totalPrice: number }) => {
       <Typography component="h1" variant="h1" fontSize={30} sx={{ mb: "20px" }}>
         Subtotal: {totalPrice}
       </Typography>
-      <Button fullWidth>Checkout</Button>
+      <Link href="/shipping">
+        <Button fullWidth>Checkout</Button>
+      </Link>
     </Container>
   );
 };

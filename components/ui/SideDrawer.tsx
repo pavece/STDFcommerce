@@ -3,8 +3,6 @@ import {
   Drawer,
   ListItem,
   List,
-  Typography,
-  Divider,
   Box,
   ListItemIcon,
   ListItemText,
@@ -16,8 +14,9 @@ import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
-import HouseRoundedIcon from "@mui/icons-material/HouseRounded";
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
+import Link from "next/link";
+
 export const SideDrawer = () => {
   const interfaceContext = useContext(UiContext);
 
@@ -40,39 +39,34 @@ export const SideDrawer = () => {
         <List>
           {/* Search bar implementation for mobile users */}
 
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            {/* User is not logged in */}
-            <ListItemIcon>
-              <KeyRoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Log In" />
-          </ListItem>
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <ListItemIcon>
-              <PersonAddAlt1RoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Register" />
-          </ListItem>
+          <Link href="/auth/login">
+            <ListItem
+              sx={{
+                cursor: "pointer",
+              }}
+            >
+              {/* User is not logged in */}
+              <ListItemIcon>
+                <KeyRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log In" />
+            </ListItem>
+          </Link>
+
+          <Link href="/auth/register">
+            <ListItem
+              sx={{
+                cursor: "pointer",
+              }}
+            >
+              <ListItemIcon>
+                <PersonAddAlt1RoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Register" />
+            </ListItem>
+          </Link>
 
           {/* User is logged in */}
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <ListItemIcon>
-              <HouseRoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="My address" />
-          </ListItem>
 
           <ListItem
             sx={{

@@ -1,6 +1,7 @@
 import { cartState } from "./cartProvider";
 import { ICartProduct } from "../../interfaces/cartProduct";
 import { stat } from "fs";
+import { IShippingAddress } from "./cartContext";
 
 type cartType =
   | { type: "cart - Add To Cart"; payload: ICartProduct[] }
@@ -9,11 +10,13 @@ type cartType =
       type: "cart - Load Cart";
       payload: ICartProduct[];
     }
+  | { type: "cart - Load Address"; payload: IShippingAddress }
   | { type: "cart - Update Product Count"; payload: ICartProduct[] }
   | {
       type: "cart - Update General Values";
       payload: { totalCount: number; totalPrice: number };
-    };
+    }
+  | { type: "cart - Update User Address"; payload: IShippingAddress };
 
 export const cartReducer = (state: cartState, action: cartType): cartState => {
   switch (action.type) {
@@ -26,6 +29,10 @@ export const cartReducer = (state: cartState, action: cartType): cartState => {
         cart: action.payload,
         isLoaded: true,
       };
+
+    case "cart - Load Address":
+      return { ...state, address: action.payload };
+
     case "cart - Remove From Cart":
       return {
         ...state,
@@ -41,6 +48,11 @@ export const cartReducer = (state: cartState, action: cartType): cartState => {
         ...state,
         totalPrice: action.payload.totalPrice,
         numberOfItems: action.payload.totalCount,
+      };
+    case "cart - Update User Address":
+      return {
+        ...state,
+        address: action.payload,
       };
 
     default:

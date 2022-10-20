@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { cartReducer } from "./cartReducer";
-import { CartContext } from "./cartContext";
+import { CartContext, IShippingAddress, cartContextProps } from "./cartContext";
 import { FC, useEffect } from "react";
 import { ICartProduct } from "../../interfaces/cartProduct";
 
@@ -11,6 +11,15 @@ const cartInitialState = {
   fee: 0,
   total: 0,
   isLoaded: false,
+  address: {
+    name: "",
+    surname: "",
+    addressLine1: "",
+    city: "",
+    country: "",
+    phoneNumber: "",
+    zipCode: "",
+  },
 };
 
 export interface cartState {
@@ -20,6 +29,7 @@ export interface cartState {
   fee: number;
   total: number;
   isLoaded: boolean;
+  address: IShippingAddress;
 }
 
 interface Props {
@@ -55,6 +65,14 @@ export const CartProvider: FC<Props> = ({ children }) => {
       payload: { totalPrice, totalCount: 0 },
     });
   }, [state.cart]);
+
+  useEffect(() => {
+    const { address } = JSON.parse(
+      localStorage.getItem("shippingAddress") ||
+        JSON.stringify(cartInitialState.address)
+    );
+    dispatch({ type: "cart - Load Address", payload: address });
+  }, []);
 
   const addProductToCart = (product: ICartProduct) => {
     const products = state.cart;
@@ -103,6 +121,14 @@ export const CartProvider: FC<Props> = ({ children }) => {
     dispatch({ type: "cart - Update Product Count", payload: updatedCart });
   };
 
+  const updateUserAddress = (address: IShippingAddress) => {
+    localStorage.setItem("shippingAddress", JSON.stringify({ address }));
+    dispatch({
+      type: "cart - Update User Address",
+      payload: address,
+    });
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -110,6 +136,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
         addProductToCart,
         removeProductFromCart,
         updateProductCount,
+        updateUserAddress,
       }}
     >
       {children}
