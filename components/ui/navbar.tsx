@@ -2,19 +2,11 @@ import { FC, useContext } from "react";
 import NextLink from "next/link";
 import Image from "next/image";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import {
-  AppBar,
-  Grid,
-  TextField,
-  Toolbar,
-  InputAdornment,
-  Typography,
-  Link,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { AppBar, Grid, Toolbar, Typography, Link, Badge } from "@mui/material";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { UiContext } from "../../context/uiContext/uiContext";
 import { SearchBar } from "./searchBar";
+import { CartContext } from "../../context/cartContext/cartContext";
 
 interface Props {
   showSearchBar: boolean;
@@ -26,6 +18,7 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
     threshold: 0,
   });
   const interfaceContext = useContext(UiContext);
+  const cartContext = useContext(CartContext);
 
   return (
     <AppBar
@@ -78,19 +71,21 @@ export const NavBar: FC<Props> = ({ showSearchBar }) => {
             }}
           >
             <Link href="/cart">
-              <ShoppingCartRoundedIcon
-                color="primary"
-                sx={{
-                  width: "30px",
-                  height: "30px",
-                  mr: "1rem",
-                  cursor: "pointer",
-                }}
-              />
+              <Badge badgeContent={cartContext.cart.length} color="primary">
+                <ShoppingCartRoundedIcon
+                  color="primary"
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    cursor: "pointer",
+                  }}
+                />
+              </Badge>
             </Link>
             <Typography
               sx={{
                 cursor: "pointer",
+                marginLeft: "30px",
               }}
               onClick={() => interfaceContext.uiOpenSideMenu()}
             >
