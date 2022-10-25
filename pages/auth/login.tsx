@@ -3,8 +3,55 @@ import { Container } from "@mui/system";
 import React from "react";
 import { MainLayout } from "../../components/layouts/mainLayout";
 import { grey } from "@mui/material/colors";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { signIn, getSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { getProviders } from "next-auth/react";
+import { useState, useEffect } from "react";
+
+type inputs = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<inputs>();
+
+  const onSubmit: SubmitHandler<inputs> = async (data) => {
+    const login = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+
+    if (login?.ok) {
+      router.replace("/");
+    } else {
+      console.log(login?.error);
+      //TODO: Show error in the UI
+    }
+  };
+
+  const [providers, setProviders] = useState<any>([]);
+
+  const redirectIfSession = async () => {
+    const session = await getSession();
+    if (session) {
+      router.replace("/");
+    }
+  };
+
+  useEffect(() => {
+    redirectIfSession();
+    getProviders().then((provider) => setProviders(provider));
+  }, []);
+
   return (
     <MainLayout
       title="STDF - Login"
@@ -26,27 +73,55 @@ const Login = () => {
         <Typography variant="h2" component="h2">
           Log - In
         </Typography>
-        <TextField
-          fullWidth
-          placeholder="Email"
-          variant="outlined"
-          margin="normal"
-          type="email"
-        ></TextField>
-        <TextField
-          fullWidth
-          placeholder="Password"
-          variant="outlined"
-          type="password"
-          margin="normal"
-        ></TextField>
-        <Button fullWidth sx={{ mt: "20px" }}>
-          Log In
-        </Button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            fullWidth
+            placeholder="Email"
+            variant="outlined"
+            margin="normal"
+            type="email"
+            {...register("email", {
+              required: "The e mail is required",
+            })}
+            error={errors.email !== undefined}
+            helperText={errors.email && errors.email.message}
+          ></TextField>
+          <TextField
+            fullWidth
+            placeholder="Password"
+            variant="outlined"
+            type="password"
+            margin="normal"
+            {...register("password", {
+              required: "The password is required",
+              minLength: 5,
+            })}
+            error={errors.email !== undefined}
+            helperText={errors.email && errors.email.message}
+          ></TextField>
+          <Button fullWidth sx={{ mt: "20px" }} type="submit">
+            Log In
+          </Button>
+        </form>
         <Divider sx={{ mt: "15px", mb: "15px" }}>
           <Typography>Or with</Typography>
         </Divider>
-        Social logins
+
+        {Object.values(providers).map((provider: any) => {
+          if (provider.type === "oauth") {
+            return (
+              <Button
+                key={provider.id}
+                fullWidth
+                onClick={() => {
+                  signIn(provider.id, { redirect: true, callbackUrl: "/" });
+                }}
+              >
+                {provider.name}
+              </Button>
+            );
+          }
+        })}
       </Container>
     </MainLayout>
   );
