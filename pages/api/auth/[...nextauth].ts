@@ -32,7 +32,6 @@ export default NextAuth({
 
   pages: {
     signIn: "/auth/login",
-    newUser: "/auth/register",
   },
 
   jwt: {
@@ -47,6 +46,7 @@ export default NextAuth({
           const oauthUser = await createOauthUser(token?.email || "");
           token.user = oauthUser;
         } else {
+          console.log(user);
           token.user = user;
         }
       }

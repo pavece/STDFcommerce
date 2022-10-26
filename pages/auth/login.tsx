@@ -1,4 +1,4 @@
-import { Button, Divider, TextField, Typography } from "@mui/material";
+import { Alert, Button, Divider, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 import { MainLayout } from "../../components/layouts/mainLayout";
@@ -8,6 +8,7 @@ import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { getProviders } from "next-auth/react";
 import { useState, useEffect } from "react";
+import Snackbar from "@mui/material/Snackbar";
 
 type inputs = {
   email: string;
@@ -16,6 +17,8 @@ type inputs = {
 
 const Login = () => {
   const router = useRouter();
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [authError, setAuthError] = useState("");
 
   const {
     register,
@@ -34,6 +37,9 @@ const Login = () => {
       router.replace("/");
     } else {
       console.log(login?.error);
+      setAuthError("Password or email incorrect");
+      setSnackOpen(true);
+
       //TODO: Show error in the UI
     }
   };
@@ -70,8 +76,8 @@ const Login = () => {
           maxWidth: { xs: "400px", sm: "400px" },
         }}
       >
-        <Typography variant="h2" component="h2">
-          Log - In
+        <Typography variant="h4" component="h4">
+          Log - In / Register
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -96,8 +102,8 @@ const Login = () => {
               required: "The password is required",
               minLength: 5,
             })}
-            error={errors.email !== undefined}
-            helperText={errors.email && errors.email.message}
+            error={errors.password !== undefined}
+            helperText={errors.password && errors.password.message}
           ></TextField>
           <Button fullWidth sx={{ mt: "20px" }} type="submit">
             Log In
@@ -123,6 +129,13 @@ const Login = () => {
           }
         })}
       </Container>
+      <Snackbar
+        open={snackOpen}
+        onClose={() => setSnackOpen(false)}
+        autoHideDuration={5000}
+      >
+        <Alert severity="error">{authError}</Alert>
+      </Snackbar>
     </MainLayout>
   );
 };
