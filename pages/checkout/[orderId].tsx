@@ -5,9 +5,11 @@ import { CheckoutSummary } from "../../components/checkout/checkoutSummary";
 import { MainLayout } from "../../components/layouts/mainLayout";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
+import { getOrder } from "../../db/functions/getOrder";
+import { GetServerSideProps } from "next";
+import { ICartProduct } from "../../interfaces/cartProduct";
 
-const Index = () => {
-  const cartContext = useContext(CartContext);
+const Index = ({ cart }: { cart: ICartProduct[] }) => {
   return (
     <MainLayout
       title="STDF - Checkout"
@@ -19,10 +21,10 @@ const Index = () => {
       </Typography>
       <Grid container>
         <Grid item xs={12} md={7}>
-          <CartProductList showControls={false} products={cartContext.cart} />
+          <CartProductList showControls={false} products={cart} />
         </Grid>
         <Grid item xs={12} md={5}>
-          <CheckoutSummary />
+          <CheckoutSummary cart={cart} />
         </Grid>
       </Grid>
     </MainLayout>
@@ -30,3 +32,24 @@ const Index = () => {
 };
 
 export default Index;
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { orderId = "" } = params as { orderId: string };
+
+  const order = JSON.parse(await getOrder(orderId));
+
+  if (order) {
+    return {
+      props: {
+        cart: order.orderContent,
+      },
+    };
+  } else {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+};

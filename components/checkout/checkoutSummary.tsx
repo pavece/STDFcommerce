@@ -7,20 +7,23 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useState, useEffect } from "react";
 import { CheckoutForm } from "./checkoutForm";
 import { useRouter } from "next/router";
+import { getOrder } from "../../db/functions/getOrder";
+import { ICartProduct } from "../../interfaces/cartProduct";
 
 const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
-export const CheckoutSummary = () => {
+export const CheckoutSummary = ({ cart }: { cart: ICartProduct[] }) => {
   const [clientSecret, setClientSecret] = useState("");
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router);
-
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderId: router.query.orderId }),
+      body: JSON.stringify({
+        orderId: router.query.orderId,
+        cart,
+      }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
@@ -32,7 +35,7 @@ export const CheckoutSummary = () => {
   } = {
     clientSecret,
     appearance: {
-      theme: "stripe",
+      theme: "flat",
     },
   };
 

@@ -2,13 +2,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { buffer } from "micro";
 import Stripe from "stripe";
+import { payOrder } from "../../../db/functions/payOrder";
 
 type Data = {
   message: string;
 };
 
-const endpointSecret =
-  "whsec_c58a31f1771a74465b4d53c5c4a8bd3566a89cd486f85daceb969b4e44b28973";
+const endpointSecret = process.env.STRIPE_WEBHOOK_KEY || "";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2022-08-01",
@@ -38,16 +38,12 @@ export default async function handler(
         return;
       }
 
-      // Handle the event
       switch (event.type) {
         case "payment_intent.succeeded":
-          const paymentIntent = event.data.object;
-          // Then define and call a function to handle the event payment_intent.succeeded
-          console.log(paymentIntent);
-          res.status(500).json({ message: "Payment filled" });
-          //TODO: implement function to update the order paid status based on the event returned and the order id
+          const paymentIntent: any = event.data.object;
+          await payOrder(paymentIntent.metadata.orderId);
+          res.status(200).json({ message: "Payment filled" });
           break;
-        // ... handle other event types
         default:
           console.log(`Unhandled event type ${event.type}`);
       }

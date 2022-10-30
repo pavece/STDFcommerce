@@ -25,8 +25,6 @@ const generateOrder = async (
   const email = session.user.email;
   const body = req.body;
 
-  console.log(body);
-
   const address = {
     fullName: body.address.name + " " + body.address.surname,
     address: body.address.addressLine1,
