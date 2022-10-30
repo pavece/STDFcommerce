@@ -2,8 +2,40 @@ import React from "react";
 import { Container } from "@mui/system";
 import { grey } from "@mui/material/colors";
 import { Typography, Button, Box } from "@mui/material";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { useState, useEffect } from "react";
+import { CheckoutForm } from "./checkoutForm";
+import { useRouter } from "next/router";
+
+const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
 export const CheckoutSummary = () => {
+  const [clientSecret, setClientSecret] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(router);
+
+    fetch("/api/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderId: router.query.orderId }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
+
+  const options: {
+    clientSecret: string;
+    appearance: { theme: "stripe" | "none" | "flat" | "night" | undefined };
+  } = {
+    clientSecret,
+    appearance: {
+      theme: "stripe",
+    },
+  };
+
   return (
     <Container
       sx={{
@@ -58,7 +90,12 @@ export const CheckoutSummary = () => {
         >
           Subtotal: $190
         </Typography>
-        <Button fullWidth>Pay</Button>
+
+        {clientSecret && (
+          <Elements stripe={stripe} options={options}>
+            <CheckoutForm />
+          </Elements>
+        )}
       </Container>
     </Container>
   );

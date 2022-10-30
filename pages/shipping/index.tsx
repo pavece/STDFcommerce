@@ -4,6 +4,8 @@ import { MainLayout } from "../../components/layouts/mainLayout";
 import { Grid, TextField, Typography, Button } from "@mui/material";
 import { Container } from "@mui/system";
 import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import { stdfApi } from "../../api/stdfApi";
 import {
   CartContext,
   IShippingAddress,
@@ -22,9 +24,15 @@ type inputs = {
 
 const ShippingDetails = () => {
   const cartContext = useContext(CartContext);
+  const router = useRouter();
 
-  const getDefaultValues = () => {
-    return cartContext.address;
+  const executeCheckout = async () => {
+    const { data } = await stdfApi.post("/api/orders/checkout", {
+      address: cartContext.address,
+      products: cartContext.cart,
+    });
+
+    return data.orderId;
   };
 
   const {
@@ -38,8 +46,11 @@ const ShippingDetails = () => {
     reset(cartContext.address);
   }, [cartContext.address]);
 
-  const onSubmit: SubmitHandler<inputs> = (data) => {
+  const onSubmit: SubmitHandler<inputs> = async (data) => {
     cartContext.updateUserAddress(data as IShippingAddress);
+    const orderId = await executeCheckout();
+
+    router.push("/checkout/" + orderId);
   };
 
   return (
