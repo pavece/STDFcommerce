@@ -15,7 +15,9 @@ import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
+import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 import Link from "next/link";
+import { userLogOut } from "../../utils/userLogOut";
 
 export const SideDrawer = () => {
   const interfaceContext = useContext(UiContext);
@@ -52,6 +54,21 @@ export const SideDrawer = () => {
               <ListItemText primary="Log In" />
             </ListItem>
           </Link>
+
+          <ListItem
+            sx={{
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              userLogOut();
+            }}
+          >
+            {/* User is not logged in */}
+            <ListItemIcon>
+              <MeetingRoomRoundedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Log Out" />
+          </ListItem>
 
           <Link href="/auth/register">
             <ListItem

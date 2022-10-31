@@ -67,7 +67,7 @@ const Login = () => {
       <Container
         sx={{
           borderRadius: "10px",
-          backgroundColor: grey[300],
+          backgroundColor: grey[100],
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
