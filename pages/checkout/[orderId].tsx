@@ -36,15 +36,15 @@ export default Index;
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { orderId = "" } = params as { orderId: string };
 
-  const order = JSON.parse(await getOrder(orderId));
+  try {
+    const order = JSON.parse(await getOrder(orderId));
 
-  if (order) {
     return {
       props: {
         cart: order.orderContent,
       },
     };
-  } else {
+  } catch (error) {
     return {
       redirect: {
         destination: "/",

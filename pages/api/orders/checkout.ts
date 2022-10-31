@@ -25,6 +25,10 @@ const generateOrder = async (
   const email = session.user.email;
   const body = req.body;
 
+  if(!body.products){
+    return res.status(400).json({message: "No products in cart, order not created"})
+  }
+
   const address = {
     fullName: body.address.name + " " + body.address.surname,
     address: body.address.addressLine1,

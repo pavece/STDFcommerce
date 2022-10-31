@@ -13,7 +13,6 @@ export default async function handler(
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    //TODO: calculate amount in the backend when creating the order and pass this amount
     amount: totalPrice * 100,
     currency: "eur",
     metadata: {

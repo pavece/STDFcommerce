@@ -26,14 +26,11 @@ const ShippingDetails = () => {
   const cartContext = useContext(CartContext);
   const router = useRouter();
 
-  const executeCheckout = async () => {
-    const { data } = await stdfApi.post("/api/orders/checkout", {
-      address: cartContext.address,
-      products: cartContext.cart,
-    });
-
-    return data.orderId;
-  };
+  useEffect(() => {
+    if (cartContext.cart.length <= 0) {
+      router.replace("/shipping/empty");
+    }
+  }, [cartContext, router]);
 
   const {
     register,
@@ -44,13 +41,17 @@ const ShippingDetails = () => {
 
   useEffect(() => {
     reset(cartContext.address);
-  }, [cartContext.address]);
+  }, [cartContext.address, reset]);
 
-  const onSubmit: SubmitHandler<inputs> = async (data) => {
-    cartContext.updateUserAddress(data as IShippingAddress);
-    const orderId = await executeCheckout();
+  const onSubmit: SubmitHandler<inputs> = async (formData) => {
+    cartContext.updateUserAddress(formData as IShippingAddress);
 
-    router.push("/checkout/" + orderId);
+    const { data } = await stdfApi.post("/api/orders/checkout", {
+      address: formData,
+      products: cartContext.cart,
+    });
+    
+    router.push("/checkout/" + data.orderId);
   };
 
   return (
