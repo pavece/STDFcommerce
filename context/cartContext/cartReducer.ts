@@ -16,7 +16,8 @@ type cartType =
       type: "cart - Update General Values";
       payload: { totalCount: number; totalPrice: number };
     }
-  | { type: "cart - Update User Address"; payload: IShippingAddress };
+  | { type: "cart - Update User Address"; payload: IShippingAddress }
+  | { type: "cart - Delete All Cart" };
 
 export const cartReducer = (state: cartState, action: cartType): cartState => {
   switch (action.type) {
@@ -37,6 +38,11 @@ export const cartReducer = (state: cartState, action: cartType): cartState => {
       return {
         ...state,
         cart: state.cart.filter((element) => element !== action.payload),
+      };
+    case "cart - Delete All Cart":
+      return {
+        ...state,
+        cart: [],
       };
     case "cart - Update Product Count":
       return {

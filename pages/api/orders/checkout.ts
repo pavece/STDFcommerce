@@ -5,6 +5,7 @@ import { authOptions } from "../auth/[...nextauth]";
 import { ICartProduct } from "../../../interfaces/cartProduct";
 import { IShippingAddress } from "../../../context/cartContext/cartContext";
 import { OrderModel } from "../../../models/ordersModel";
+import { getCartPrices } from "../../../db/functions/getCartPrice";
 
 type Data =
   | {
@@ -25,8 +26,10 @@ const generateOrder = async (
   const email = session.user.email;
   const body = req.body;
 
-  if(!body.products){
-    return res.status(400).json({message: "No products in cart, order not created"})
+  if (!body.products) {
+    return res
+      .status(400)
+      .json({ message: "No products in cart, order not created" });
   }
 
   const address = {
@@ -36,13 +39,15 @@ const generateOrder = async (
     phone: body.address.phoneNumber,
   };
 
+  const finalPrice = await getCartPrices(body.products);
+
   await connect();
 
   const newOrder = new OrderModel({
     paid: false,
     orderAuthorEmail: email,
     orderContent: body.products,
-    orderTotalPrice: 100,
+    orderTotalPrice: finalPrice,
     orderAuthorAddress: address,
   });
 

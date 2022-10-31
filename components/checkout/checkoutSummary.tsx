@@ -12,7 +12,13 @@ import { ICartProduct } from "../../interfaces/cartProduct";
 
 const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
-export const CheckoutSummary = ({ cart }: { cart: ICartProduct[] }) => {
+export const CheckoutSummary = ({
+  cart,
+  price,
+}: {
+  cart: ICartProduct[];
+  price: number;
+}) => {
   const [clientSecret, setClientSecret] = useState("");
   const router = useRouter();
 
@@ -38,6 +44,8 @@ export const CheckoutSummary = ({ cart }: { cart: ICartProduct[] }) => {
       theme: "flat",
     },
   };
+
+  const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE);
 
   return (
     <Container
@@ -82,7 +90,7 @@ export const CheckoutSummary = ({ cart }: { cart: ICartProduct[] }) => {
             Tax:
           </Typography>
           <Typography component="h3" variant="h3" fontSize={18}>
-            $example
+            $ {Math.round(price * taxRate)}
           </Typography>
         </Box>
         <Typography
@@ -91,7 +99,7 @@ export const CheckoutSummary = ({ cart }: { cart: ICartProduct[] }) => {
           fontSize={30}
           sx={{ mb: "20px" }}
         >
-          Subtotal: $190
+          Total: ${Math.round(price)}
         </Typography>
 
         {clientSecret && (

@@ -3,13 +3,17 @@ import React from "react";
 import { CartProductList } from "../../components/cart/cartProductList";
 import { CheckoutSummary } from "../../components/checkout/checkoutSummary";
 import { MainLayout } from "../../components/layouts/mainLayout";
-import { useContext } from "react";
-import { CartContext } from "../../context/cartContext/cartContext";
 import { getOrder } from "../../db/functions/getOrder";
 import { GetServerSideProps } from "next";
 import { ICartProduct } from "../../interfaces/cartProduct";
 
-const Index = ({ cart }: { cart: ICartProduct[] }) => {
+const Index = ({
+  cart,
+  finalPrice,
+}: {
+  cart: ICartProduct[];
+  finalPrice: number;
+}) => {
   return (
     <MainLayout
       title="STDF - Checkout"
@@ -24,7 +28,7 @@ const Index = ({ cart }: { cart: ICartProduct[] }) => {
           <CartProductList showControls={false} products={cart} />
         </Grid>
         <Grid item xs={12} md={5}>
-          <CheckoutSummary cart={cart} />
+          <CheckoutSummary cart={cart} price={finalPrice} />
         </Grid>
       </Grid>
     </MainLayout>
@@ -42,6 +46,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       props: {
         cart: order.orderContent,
+        finalPrice:
+          order.orderTotalPrice +
+          order.orderTotalPrice * Number(process.env.NEXT_PUBLIC_TAX_RATE),
       },
     };
   } catch (error) {
