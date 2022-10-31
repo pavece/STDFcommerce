@@ -121,6 +121,11 @@ export const CartProvider: FC<Props> = ({ children }) => {
     dispatch({ type: "cart - Update Product Count", payload: updatedCart });
   };
 
+  const deleteAllCart = () => {
+    localStorage.removeItem("cart")
+    dispatch({ type: "cart - Delete All Cart" });
+  };
+
   const updateUserAddress = (address: IShippingAddress) => {
     localStorage.setItem("shippingAddress", JSON.stringify({ address }));
     dispatch({
@@ -137,6 +142,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
         removeProductFromCart,
         updateProductCount,
         updateUserAddress,
+        deleteAllCart,
       }}
     >
       {children}
