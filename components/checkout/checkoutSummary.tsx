@@ -7,7 +7,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useState, useEffect } from "react";
 import { CheckoutForm } from "./checkoutForm";
 import { useRouter } from "next/router";
-import { getOrder } from "../../db/functions/getOrder";
 import { ICartProduct } from "../../interfaces/cartProduct";
 
 const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
@@ -15,9 +14,11 @@ const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 export const CheckoutSummary = ({
   cart,
   price,
+  orderId,
 }: {
   cart: ICartProduct[];
   price: number;
+  orderId: string;
 }) => {
   const [clientSecret, setClientSecret] = useState("");
   const router = useRouter();
@@ -104,7 +105,7 @@ export const CheckoutSummary = ({
 
         {clientSecret && (
           <Elements stripe={stripe} options={options}>
-            <CheckoutForm />
+            <CheckoutForm orderId={orderId} />
           </Elements>
         )}
       </Container>

@@ -19,6 +19,8 @@ export const checkUser = async (email: string, password: string) => {
     const user = new UserModel({
       email,
       password: await bcrypt.hash(password, 10),
+      orders: [],
+      role: "user",
     });
 
     await user.save();
@@ -29,7 +31,7 @@ export const checkUser = async (email: string, password: string) => {
 
 export const createOauthUser = async (email: string) => {
   await connect();
-  const oauthUser = new UserModel({ email, role: "admin" });
+  const oauthUser = new UserModel({ email, role: "admin", orders: [] });
   await oauthUser.save();
   await disconnect();
 

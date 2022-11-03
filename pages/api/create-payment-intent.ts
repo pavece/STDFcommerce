@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getCartPrices } from "../../db/functions/getCartPrice";
 import { getOrder } from "../../db/functions/getOrder";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);

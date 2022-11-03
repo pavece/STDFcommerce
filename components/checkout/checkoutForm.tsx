@@ -6,7 +6,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-export const CheckoutForm = () => {
+export const CheckoutForm = ({ orderId }: { orderId: string }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -56,7 +56,7 @@ export const CheckoutForm = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000/order/success",
+        return_url: `http://localhost:3000/order/success/${orderId}`,
       },
     });
 

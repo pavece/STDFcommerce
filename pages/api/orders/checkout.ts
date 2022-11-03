@@ -6,6 +6,7 @@ import { ICartProduct } from "../../../interfaces/cartProduct";
 import { IShippingAddress } from "../../../context/cartContext/cartContext";
 import { OrderModel } from "../../../models/ordersModel";
 import { getCartPrices } from "../../../db/functions/getCartPrice";
+import { assignOrderToUser } from "../../../db/functions/userOrders";
 
 type Data =
   | {
@@ -48,10 +49,14 @@ const generateOrder = async (
     orderAuthorEmail: email,
     orderContent: body.products,
     orderTotalPrice: finalPrice,
+    orderTaxedPrice: Math.floor(
+      finalPrice + finalPrice * Number(process.env.NEXT_PUBLIC_TAX_RATE)
+    ),
     orderAuthorAddress: address,
   });
 
   await newOrder.save();
+  await assignOrderToUser(email, newOrder._id);
   await disconnect();
 
   res.status(200).json({ orderId: newOrder._id });

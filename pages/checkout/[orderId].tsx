@@ -10,9 +10,11 @@ import { ICartProduct } from "../../interfaces/cartProduct";
 const Index = ({
   cart,
   finalPrice,
+  orderId,
 }: {
   cart: ICartProduct[];
   finalPrice: number;
+  orderId: string;
 }) => {
   return (
     <MainLayout
@@ -28,7 +30,7 @@ const Index = ({
           <CartProductList showControls={false} products={cart} />
         </Grid>
         <Grid item xs={12} md={5}>
-          <CheckoutSummary cart={cart} price={finalPrice} />
+          <CheckoutSummary cart={cart} price={finalPrice} orderId={orderId} />
         </Grid>
       </Grid>
     </MainLayout>
@@ -45,6 +47,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     return {
       props: {
+        orderId,
         cart: order.orderContent,
         finalPrice:
           order.orderTotalPrice +
