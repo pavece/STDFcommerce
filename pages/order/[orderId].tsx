@@ -29,8 +29,8 @@ const Order = ({ order }: { order: IOrder }) => {
         </Grid>
         <Grid item xs={12} sm={5}>
           <OrderDetailsSummary
-            totalPrice={order.orderTotalPrice}
-            shippingStatus="Shipping"
+            totalPrice={order.orderTaxedPrice}
+            shippingStatus={order.orderShippingStatus}
             isPaid={order.paid}
             orderId={order._id || ""}
           ></OrderDetailsSummary>

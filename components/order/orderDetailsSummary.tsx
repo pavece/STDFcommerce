@@ -51,7 +51,7 @@ export const OrderDetailsSummary: FC<Props> = ({
           }}
         >
           <Typography component="h3" variant="h3" fontSize={18}>
-            Order price:
+            Order price (includes tax):
           </Typography>
           <Typography component="h3" variant="h3" fontSize={18}>
             {totalPrice}$
