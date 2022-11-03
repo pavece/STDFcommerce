@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, Chip } from "@mui/material";
 import React from "react";
 import Image from "next/image";
 import { red } from "@mui/material/colors";
@@ -7,6 +7,7 @@ import { ICartProduct } from "../../interfaces/cartProduct";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
 
+//TODO: add product count when controls not enabled
 export const CartProduct = ({
   showControls,
   product,
@@ -39,7 +40,9 @@ export const CartProduct = ({
             <Counter
               initialValue={product.quantity}
               maxValue={10}
-              getValue={(value) => cartContext.updateProductCount(value, product.slug)}
+              getValue={(value) =>
+                cartContext.updateProductCount(value, product.slug)
+              }
             />
             <Typography
               onClick={() => {
@@ -54,7 +57,11 @@ export const CartProduct = ({
               Remove
             </Typography>
           </>
-        ) : null}
+        ) : (
+          <>
+            <Chip label={`Quantity: ${product.quantity}`} sx={{ mt:"10px" }} />
+          </>
+        )}
       </Grid>
       <Grid item xs={4}>
         <Typography>${product.price}</Typography>
