@@ -46,6 +46,7 @@ export const authOptions: NextAuthOptions = {
           const oauthUser = await createOauthUser(token?.email || "");
           token.user = oauthUser;
         } else {
+          console.log(user);
           token.user = user;
         }
       }
@@ -54,6 +55,8 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token, user }: any) {
       session.accessToken = token.accessToken;
+      session.user = token.user as any;
+
       return session;
     },
   },

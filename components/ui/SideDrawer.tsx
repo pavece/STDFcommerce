@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Drawer,
   ListItem,
@@ -18,9 +18,22 @@ import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedI
 import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 import Link from "next/link";
 import { userLogOut } from "../../utils/userLogOut";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export const SideDrawer = () => {
   const interfaceContext = useContext(UiContext);
+  const uiContext = useContext(UiContext);
+  const router = useRouter();
+  const { data: session, status }: { data: any; status: string } = useSession();
+
+  useEffect(() => {
+    console.log(session);
+  }, []);
+
+  const hideMenu = () => {
+    uiContext.uiCloseSideMenu();
+  };
 
   return (
     <Drawer
@@ -39,105 +52,105 @@ export const SideDrawer = () => {
         }}
       >
         <List>
+          {/* TODO: Implement menu hide on item click */}
           {/* Search bar implementation for mobile users */}
+          {status == "authenticated" ? (
+            <>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  userLogOut();
+                }}
+              >
+                <ListItemIcon>
+                  <MeetingRoomRoundedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Log Out"
+                  onClick={() => {
+                    hideMenu();
+                  }}
+                />
+              </ListItem>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <ListItemIcon>
+                  <AssignmentTurnedInRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="My Orders" />
+              </ListItem>
+            </>
+          ) : (
+            <Link href="/auth/login">
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <ListItemIcon>
+                  <KeyRoundedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Log In / register"
+                  onClick={() => {
+                    hideMenu();
+                  }}
+                />
+              </ListItem>
+            </Link>
+          )}
 
-          <Link href="/auth/login">
-            <ListItem
-              sx={{
-                cursor: "pointer",
-              }}
-            >
-              {/* User is not logged in */}
-              <ListItemIcon>
-                <KeyRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Log In" />
-            </ListItem>
-          </Link>
+          {session?.user?.role === "admin" && status === "authenticated" ? (
+            <>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <ListItemIcon>
+                  <QueryStatsRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Stats" />
+              </ListItem>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <ListItemIcon>
+                  <Inventory2RoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Products" />
+              </ListItem>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <ListItemIcon>
+                  <PeopleAltRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Clients" />
+              </ListItem>
 
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              userLogOut();
-            }}
-          >
-            {/* User is not logged in */}
-            <ListItemIcon>
-              <MeetingRoomRoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Log Out" />
-          </ListItem>
-
-          <Link href="/auth/register">
-            <ListItem
-              sx={{
-                cursor: "pointer",
-              }}
-            >
-              <ListItemIcon>
-                <PersonAddAlt1RoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Register" />
-            </ListItem>
-          </Link>
-
-          {/* User is logged in */}
-
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <ListItemIcon>
-              <AssignmentTurnedInRoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="My Orders" />
-          </ListItem>
-
-          {/* User is admin */}
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <ListItemIcon>
-              <QueryStatsRoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Stats" />
-          </ListItem>
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <ListItemIcon>
-              <Inventory2RoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Products" />
-          </ListItem>
-          <ListItem
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <ListItemIcon>
-              <PeopleAltRoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Clients" />
-          </ListItem>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <ListItemIcon>
+                  <LocalShippingRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Orders" />
+              </ListItem>
+            </>
+          ) : null}
         </List>
-        <ListItem
-          sx={{
-            cursor: "pointer",
-          }}
-        >
-          <ListItemIcon>
-            <LocalShippingRoundedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Orders" />
-        </ListItem>
       </Box>
     </Drawer>
   );

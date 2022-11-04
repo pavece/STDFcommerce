@@ -10,7 +10,7 @@ export const checkUser = async (email: string, password: string) => {
   if (existingUser) {
     if (bcrypt.compareSync(password, existingUser.password)) {
       await disconnect();
-      return { email, role: "admin", id: existingUser._id };
+      return { email, role: existingUser.role, id: existingUser._id };
     } else {
       await disconnect();
       return null;

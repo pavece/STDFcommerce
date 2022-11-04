@@ -7,8 +7,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { getProviders } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Snackbar from "@mui/material/Snackbar";
+import { UiContext } from "../../context/uiContext/uiContext";
 
 type inputs = {
   email: string;
@@ -39,8 +40,6 @@ const Login = () => {
       console.log(login?.error);
       setAuthError("Password or email incorrect");
       setSnackOpen(true);
-
-      //TODO: Show error in the UI
     }
   };
 
