@@ -10,7 +10,6 @@ import { getOrder } from "../../db/functions/getOrder";
 import { IOrder } from "../../interfaces/orderInterface";
 import { OrderDetailsSummary } from "../../components/order/orderDetailsSummary";
 
-//TODO: implement a cancel order button if the user havent paid the order
 const Order = ({ order }: { order: IOrder }) => {
   return (
     <MainLayout

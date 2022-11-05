@@ -7,7 +7,6 @@ import { ICartProduct } from "../../interfaces/cartProduct";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
 
-//TODO: add product count when controls not enabled
 export const CartProduct = ({
   showControls,
   product,

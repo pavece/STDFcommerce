@@ -20,6 +20,7 @@ import Link from "next/link";
 import { userLogOut } from "../../utils/userLogOut";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { SearchBar } from "./searchBar";
 
 export const SideDrawer = () => {
   const interfaceContext = useContext(UiContext);
