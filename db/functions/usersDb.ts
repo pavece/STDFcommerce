@@ -25,12 +25,18 @@ export const checkUser = async (email: string, password: string) => {
 
     await user.save();
     await disconnect();
-    return { email, role: "admin", id: user._id };
+    return { email, role: user.role, id: user._id };
   }
 };
 
 export const createOauthUser = async (email: string) => {
   await connect();
+
+  const existingUser = await UserModel.findOne({ email });
+
+  if (existingUser) {
+    return existingUser;
+  }
   const oauthUser = new UserModel({ email, role: "admin", orders: [] });
   await oauthUser.save();
   await disconnect();

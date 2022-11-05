@@ -46,7 +46,6 @@ export const authOptions: NextAuthOptions = {
           const oauthUser = await createOauthUser(token?.email || "");
           token.user = oauthUser;
         } else {
-          console.log(user);
           token.user = user;
         }
       }
