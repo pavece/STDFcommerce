@@ -8,4 +8,5 @@ export interface IOrder {
   orderTaxedPrice: number;
   orderShippingStatus: "Unpaid" | "Packaging" | "In the truck" | "In your city";
   orderAuthorAddress: any;
+  createdAt?: string;
 }

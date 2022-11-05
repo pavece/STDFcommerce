@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
+    "@mui/x-data-grid": "^5.17.10",
     "@stripe/react-stripe-js": "^1.14.1",
     "@stripe/stripe-js": "^1.42.0",
     "axios": "^1.1.3",

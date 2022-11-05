@@ -27,10 +27,6 @@ export const SideDrawer = () => {
   const router = useRouter();
   const { data: session, status }: { data: any; status: string } = useSession();
 
-  useEffect(() => {
-    console.log(session);
-  }, []);
-
   const hideMenu = () => {
     uiContext.uiCloseSideMenu();
   };
@@ -62,28 +58,26 @@ export const SideDrawer = () => {
                 }}
                 onClick={() => {
                   userLogOut();
+                  hideMenu();
                 }}
               >
                 <ListItemIcon>
                   <MeetingRoomRoundedIcon />
                 </ListItemIcon>
-                <ListItemText
-                  primary="Log Out"
-                  onClick={() => {
-                    hideMenu();
+                <ListItemText primary="Log Out" />
+              </ListItem>
+              <Link href="/user/orders">
+                <ListItem
+                  sx={{
+                    cursor: "pointer",
                   }}
-                />
-              </ListItem>
-              <ListItem
-                sx={{
-                  cursor: "pointer",
-                }}
-              >
-                <ListItemIcon>
-                  <AssignmentTurnedInRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary="My Orders" />
-              </ListItem>
+                >
+                  <ListItemIcon>
+                    <AssignmentTurnedInRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Orders" />
+                </ListItem>
+              </Link>
             </>
           ) : (
             <Link href="/auth/login">
