@@ -5,7 +5,7 @@ export default withAuth(function middleware(req) {}, {
     authorized: ({ req, token }: { req: any; token: any }) => {
       const pathName = req.nextUrl.pathname;
 
-      if (pathName.startsWith("/api/admin" || "/admin")) {
+      if (pathName.startsWith("/api/admin") || pathName.startsWith("/admin")) {
         if (token?.user.role == "admin") {
           return true;
         } else {
@@ -24,6 +24,7 @@ export const config = {
     "/api/orders/:path*",
     "/api/admin/:path*",
     "/checkout/:path*",
+    "/admin/:path*",
     "/shipping",
     "/admin/:path*",
   ],
