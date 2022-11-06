@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import {
   Drawer,
   ListItem,
@@ -8,7 +8,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import { UiContext } from "../../context/uiContext/uiContext";
-import PersonAddAlt1RoundedIcon from "@mui/icons-material/PersonAddAlt1Rounded";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
@@ -21,6 +20,7 @@ import { userLogOut } from "../../utils/userLogOut";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SearchBar } from "./searchBar";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 
 export const SideDrawer = () => {
   const interfaceContext = useContext(UiContext);
@@ -112,26 +112,42 @@ export const SideDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary="Stats" />
               </ListItem>
-              <ListItem
-                sx={{
-                  cursor: "pointer",
-                }}
-              >
-                <ListItemIcon>
-                  <Inventory2RoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Products" />
-              </ListItem>
-              <ListItem
-                sx={{
-                  cursor: "pointer",
-                }}
-              >
-                <ListItemIcon>
-                  <PeopleAltRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Clients" />
-              </ListItem>
+              <Link href="/admin/products">
+                <ListItem
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <ListItemIcon>
+                    <Inventory2RoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Products" />
+                </ListItem>
+              </Link>
+              <Link href="/admin/products/new">
+                <ListItem
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <ListItemIcon>
+                    <AddCircleRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="New product" />
+                </ListItem>
+              </Link>
+              <Link href="/admin/users">
+                <ListItem
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <ListItemIcon>
+                    <PeopleAltRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Clients" />
+                </ListItem>
+              </Link>
               <Link href="/admin/orders">
                 <ListItem
                   sx={{

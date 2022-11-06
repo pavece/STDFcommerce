@@ -1,4 +1,5 @@
 export default interface IProduct {
+  _id?: string;
   images: string[];
   title: string;
   price: number;
