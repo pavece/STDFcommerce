@@ -7,6 +7,11 @@ export interface IOrder {
   orderTotalPrice: number;
   orderTaxedPrice: number;
   orderShippingStatus: "Unpaid" | "Packaging" | "In the truck" | "In your city";
-  orderAuthorAddress: any;
+  orderAuthorAddress: {
+    fullName: string;
+    address: string;
+    zipCode: string;
+    phone: string;
+  };
   createdAt?: string;
 }

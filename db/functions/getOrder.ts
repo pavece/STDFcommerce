@@ -7,3 +7,16 @@ export const getOrder = async (orderId: string) => {
   await disconnect();
   return JSON.stringify(order);
 };
+
+export const getAllOrders = async () => {
+  try {
+    await connect();
+    const orders = JSON.stringify(await OrderModel.find().lean());
+    await disconnect();
+    return JSON.parse(orders);
+  } catch (error) {
+    await disconnect();
+    console.log(error);
+    return [];
+  }
+};

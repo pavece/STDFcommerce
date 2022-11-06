@@ -132,17 +132,18 @@ export const SideDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary="Clients" />
               </ListItem>
-
-              <ListItem
-                sx={{
-                  cursor: "pointer",
-                }}
-              >
-                <ListItemIcon>
-                  <LocalShippingRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Orders" />
-              </ListItem>
+              <Link href="/admin/orders">
+                <ListItem
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <ListItemIcon>
+                    <LocalShippingRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Orders" />
+                </ListItem>
+              </Link>
             </>
           ) : null}
         </List>
