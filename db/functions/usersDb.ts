@@ -43,3 +43,18 @@ export const createOauthUser = async (email: string) => {
 
   return oauthUser;
 };
+
+export const getAllUsers = async () => {
+  try {
+    await connect();
+    const users = JSON.stringify(
+      await UserModel.find().lean().select("-password")
+    );
+    await disconnect();
+    return JSON.parse(users);
+  } catch (error) {
+    await disconnect();
+    console.log(error);
+    return [];
+  }
+};
