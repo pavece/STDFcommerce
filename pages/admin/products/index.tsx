@@ -11,6 +11,7 @@ import Image from "next/image";
 const ProductsPage = ({ products }: { products: IProduct[] }) => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 200 },
+    { field: "slug", headerName: "Slug", width: 250 },
     {
       field: "image",
       headerName: "First image",
@@ -34,7 +35,7 @@ const ProductsPage = ({ products }: { products: IProduct[] }) => {
       headerName: "Edit",
       renderCell: (params) => {
         return (
-          <Link href={`/admin/products/edit/${params.row.id}`}>
+          <Link href={`/admin/products/${params.row.slug}`}>
             <Button>Edit</Button>
           </Link>
         );
@@ -45,6 +46,7 @@ const ProductsPage = ({ products }: { products: IProduct[] }) => {
   const rows = products.map((product: IProduct) => {
     return {
       id: product._id,
+      slug: product.slug,
       image: product.images[0],
       title: product.title,
       price: product.price,
