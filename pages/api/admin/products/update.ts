@@ -27,5 +27,5 @@ export default async function handler(
         .json({ status: "Some error occurred while updating the product" });
     }
   }
-  res.status(200).json({ status: "Example" });
+  res.status(405).json({ status: "Method not allowed" });
 }

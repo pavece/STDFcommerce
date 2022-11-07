@@ -7,8 +7,12 @@ import { Typography, Button } from "@mui/material";
 import IProduct from "../../../interfaces/product";
 import Link from "next/link";
 import Image from "next/image";
+import { stdfApi } from "../../../api/stdfApi";
+import { useRouter } from "next/router";
 
 const ProductsPage = ({ products }: { products: IProduct[] }) => {
+  const router = useRouter();
+
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 200 },
     { field: "slug", headerName: "Slug", width: 250 },
@@ -41,6 +45,28 @@ const ProductsPage = ({ products }: { products: IProduct[] }) => {
         );
       },
     },
+    {
+      field: "delete",
+      headerName: "Delete product",
+      renderCell: (params) => {
+        return (
+          <Button
+            sx={{
+              backgroundColor: "#f44336",
+              mb: "10px",
+              "&:hover": {
+                background: "#f44336ba",
+              },
+            }}
+            onClick={() => {
+              deleteProduct(params.row.id);
+            }}
+          >
+            Delete
+          </Button>
+        );
+      },
+    },
   ];
 
   const rows = products.map((product: IProduct) => {
@@ -53,6 +79,15 @@ const ProductsPage = ({ products }: { products: IProduct[] }) => {
       category: product.category,
     };
   });
+
+  const deleteProduct = async (id: string) => {
+    try {
+      const { data } = await stdfApi.delete(`/api/admin/products/delete/${id}`);
+      router.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <MainLayout

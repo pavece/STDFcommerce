@@ -24,6 +24,8 @@ export const config = {
     "/api/orders/:path*",
     "/api/admin/orders/:path*",
     "/api/admin/products/create",
+    "/api/admin/products/update",
+    "/api/admin/products/delete/:path*",
     "/api/admin/users/:path*",
     "/checkout/:path*",
     "/admin/:path*",
