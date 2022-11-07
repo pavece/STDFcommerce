@@ -15,10 +15,12 @@ export const CheckoutSummary = ({
   cart,
   price,
   orderId,
+  noTaxPrice,
 }: {
   cart: ICartProduct[];
   price: number;
   orderId: string;
+  noTaxPrice: number;
 }) => {
   const [clientSecret, setClientSecret] = useState("");
   const router = useRouter();
@@ -91,7 +93,7 @@ export const CheckoutSummary = ({
             Tax:
           </Typography>
           <Typography component="h3" variant="h3" fontSize={18}>
-            $ {Math.round(price * taxRate)}
+            $ {price - noTaxPrice}
           </Typography>
         </Box>
         <Typography

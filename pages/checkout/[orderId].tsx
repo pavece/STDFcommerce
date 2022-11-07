@@ -11,10 +11,12 @@ const Index = ({
   cart,
   finalPrice,
   orderId,
+  noTaxPrice,
 }: {
   cart: ICartProduct[];
   finalPrice: number;
   orderId: string;
+  noTaxPrice: number;
 }) => {
   return (
     <MainLayout
@@ -30,7 +32,12 @@ const Index = ({
           <CartProductList showControls={false} products={cart} />
         </Grid>
         <Grid item xs={12} md={5}>
-          <CheckoutSummary cart={cart} price={finalPrice} orderId={orderId} />
+          <CheckoutSummary
+            cart={cart}
+            price={finalPrice}
+            orderId={orderId}
+            noTaxPrice={noTaxPrice}
+          />
         </Grid>
       </Grid>
     </MainLayout>
@@ -49,9 +56,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       props: {
         orderId,
         cart: order.orderContent,
-        finalPrice:
-          order.orderTotalPrice +
-          order.orderTotalPrice * Number(process.env.NEXT_PUBLIC_TAX_RATE),
+        finalPrice: order.orderTaxedPrice,
+        noTaxPrice: order.orderTotalPrice,
       },
     };
   } catch (error) {
