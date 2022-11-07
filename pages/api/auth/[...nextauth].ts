@@ -43,7 +43,10 @@ export const authOptions: NextAuthOptions = {
       if (account) {
         token.accessToken = account.access_token;
         if (account?.type === "oauth") {
-          const oauthUser = await createOauthUser(token?.email || "");
+          const oauthUser = await createOauthUser(
+            token?.email || "",
+            account.provider
+          );
           token.user = oauthUser;
         } else {
           token.user = user;
