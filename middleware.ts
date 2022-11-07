@@ -22,7 +22,9 @@ export default withAuth(function middleware(req) {}, {
 export const config = {
   matcher: [
     "/api/orders/:path*",
-    "/api/admin/:path*",
+    "/api/admin/orders/:path*",
+    "/api/admin/products/create",
+    "/api/admin/users/:path*",
     "/checkout/:path*",
     "/admin/:path*",
     "/shipping",
