@@ -15,7 +15,7 @@ import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import Link from "next/link";
 import { userLogOut } from "../../utils/userLogOut";
 import { useSession } from "next-auth/react";
@@ -31,6 +31,11 @@ export const SideDrawer = () => {
 
   const hideMenu = () => {
     uiContext.uiCloseSideMenu();
+  };
+
+  const goTo = (url: string) => {
+    hideMenu();
+    router.replace(url);
   };
 
   return (
@@ -50,8 +55,9 @@ export const SideDrawer = () => {
         }}
       >
         <List>
-          {/* TODO: Implement menu hide on item click */}
-          {/* Search bar implementation for mobile users */}
+          <ListItem sx={{ display: { xs: "", md: "none" }, padding: "0 10px" }}>
+            <SearchBar></SearchBar>
+          </ListItem>
           {status == "authenticated" ? (
             <>
               <ListItem
@@ -68,102 +74,105 @@ export const SideDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary="Log Out" />
               </ListItem>
-              <Link href="/user/orders">
-                <ListItem
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                >
-                  <ListItemIcon>
-                    <AssignmentTurnedInRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Orders" />
-                </ListItem>
-              </Link>
-            </>
-          ) : (
-            <Link href="/auth/login">
+
               <ListItem
                 sx={{
                   cursor: "pointer",
                 }}
+                onClick={() => {
+                  goTo("/user/orders");
+                }}
               >
                 <ListItemIcon>
-                  <KeyRoundedIcon />
+                  <AssignmentTurnedInRoundedIcon />
                 </ListItemIcon>
-                <ListItemText
-                  primary="Log In / register"
-                  onClick={() => {
-                    hideMenu();
-                  }}
-                />
+                <ListItemText primary="My Orders" />
               </ListItem>
-            </Link>
+            </>
+          ) : (
+            <ListItem
+              sx={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                goTo("/auth/login");
+              }}
+            >
+              <ListItemIcon>
+                <KeyRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log In / register" />
+            </ListItem>
           )}
 
           {session?.user?.role === "admin" && status === "authenticated" ? (
             <>
-              <Link href="/admin">
-                <ListItem
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                >
-                  <ListItemIcon>
-                    <DashboardRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Dashboard" />
-                </ListItem>
-              </Link>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  goTo("/admin");
+                }}
+              >
+                <ListItemIcon>
+                  <DashboardRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItem>
 
-              <Link href="/admin/products">
-                <ListItem
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                >
-                  <ListItemIcon>
-                    <Inventory2RoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Products" />
-                </ListItem>
-              </Link>
-              <Link href="/admin/products/new">
-                <ListItem
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                >
-                  <ListItemIcon>
-                    <AddCircleRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="New product" />
-                </ListItem>
-              </Link>
-              <Link href="/admin/users">
-                <ListItem
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                >
-                  <ListItemIcon>
-                    <PeopleAltRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Clients" />
-                </ListItem>
-              </Link>
-              <Link href="/admin/orders">
-                <ListItem
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                >
-                  <ListItemIcon>
-                    <LocalShippingRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Orders" />
-                </ListItem>
-              </Link>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  goTo("/admin/products");
+                }}
+              >
+                <ListItemIcon>
+                  <Inventory2RoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Products" />
+              </ListItem>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  goTo("/admin/products/new");
+                }}
+              >
+                <ListItemIcon>
+                  <AddCircleRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="New product" />
+              </ListItem>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  goTo("/admin/users");
+                }}
+              >
+                <ListItemIcon>
+                  <PeopleAltRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Clients" />
+              </ListItem>
+              <ListItem
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  goTo("/admin/orders");
+                }}
+              >
+                <ListItemIcon>
+                  <LocalShippingRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Orders" />
+              </ListItem>
             </>
           ) : null}
         </List>
