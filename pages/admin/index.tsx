@@ -85,12 +85,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const orders = await getAllOrders();
   const users = await getAllUsers();
   const products = await getAllProducts();
+  const orderCount = orders.length;
   const paidOrders = orders.filter((order: IOrder) => order.paid);
 
   return {
     props: {
       lastOrders: orders.reverse().splice(0, 3),
-      orderCount: orders.length,
+      orderCount,
       userCount: users.length,
       productCount: products.length,
       paidOrdersCount: paidOrders.length,
