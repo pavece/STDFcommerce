@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { getProviders } from "next-auth/react";
 import { useState, useEffect, useContext } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import { UiContext } from "../../context/uiContext/uiContext";
 
 type inputs = {
   email: string;
@@ -20,6 +19,8 @@ const Login = () => {
   const router = useRouter();
   const [snackOpen, setSnackOpen] = useState(false);
   const [authError, setAuthError] = useState("");
+
+  const loginNext = router.query.callbackUrl;
 
   const {
     register,
@@ -35,7 +36,7 @@ const Login = () => {
     });
 
     if (login?.ok) {
-      router.replace("/");
+      router.replace((loginNext as string) || "/");
     } else {
       console.log(login?.error);
       setAuthError("Password or email incorrect");
