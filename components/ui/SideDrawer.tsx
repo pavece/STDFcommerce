@@ -15,6 +15,7 @@ import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import Link from "next/link";
 import { userLogOut } from "../../utils/userLogOut";
 import { useSession } from "next-auth/react";
@@ -102,16 +103,19 @@ export const SideDrawer = () => {
 
           {session?.user?.role === "admin" && status === "authenticated" ? (
             <>
-              <ListItem
-                sx={{
-                  cursor: "pointer",
-                }}
-              >
-                <ListItemIcon>
-                  <QueryStatsRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Stats" />
-              </ListItem>
+              <Link href="/admin">
+                <ListItem
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashboard" />
+                </ListItem>
+              </Link>
+
               <Link href="/admin/products">
                 <ListItem
                   sx={{
