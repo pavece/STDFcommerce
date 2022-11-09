@@ -14,6 +14,7 @@ const ProductPage = ({ product }: { product: IProduct }) => {
     <MainLayout
       title={product.title}
       description={product.description}
+      ogImageUrl={product.images[0]}
       showSearchBar={false}
     >
       <Grid container spacing={3}>

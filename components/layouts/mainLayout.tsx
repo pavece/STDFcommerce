@@ -13,7 +13,7 @@ interface Props {
 
 export const MainLayout: FC<Props> = ({
   title,
-  ogImageUrl,
+  ogImageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/sample_og_img.jpg`,
   description,
   children,
   showSearchBar,
@@ -23,7 +23,18 @@ export const MainLayout: FC<Props> = ({
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
-        {/* TODO: add SEO meta */}
+        <meta name="twitter:image" property="og:image" content={ogImageUrl} />
+        <link property="image" href={ogImageUrl} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image:src" content={ogImageUrl} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}
+        />
+        <meta property="og:description" content={description} />
+        <meta property="og:title" content={title} />
       </Head>
       <NavBar showSearchBar={showSearchBar} />
       <SideDrawer />
@@ -36,7 +47,6 @@ export const MainLayout: FC<Props> = ({
       >
         <div>{children}</div>
       </main>
-      {/* Foot */}
     </>
   );
 };

@@ -20,9 +20,8 @@ export const ProductCard: FC<Props> = ({ imageUrl, title, price, slug }) => {
         width: "100%",
         borderRadius: "20px",
         padding: "20px 20px",
-        boxShadow: "2px 3px 4px 2px #0404040d",
         margin: "0 auto",
-        backgroundColor: grey[200],
+        backgroundColor: grey[100],
       }}
     >
       <div
@@ -37,12 +36,7 @@ export const ProductCard: FC<Props> = ({ imageUrl, title, price, slug }) => {
         }}
       ></div>
       <div>
-        <Typography
-          variant="h6"
-          fontSize={18}
-          color="primary"
-          fontWeight={400}
-        >
+        <Typography variant="h6" fontSize={18} color="primary" fontWeight={400}>
           {title}
         </Typography>
         <Typography
