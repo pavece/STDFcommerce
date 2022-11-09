@@ -44,7 +44,7 @@ npm i
 npm run dev 
 ```
 
-Then go to [http://localhost:3000/api/seed](seed api EP) to load default data into the DB.
+Then go to [Seed EP](http://localhost:3000/api/seed) to load default data into the DB.
 
 Finally open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
