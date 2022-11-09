@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# STDF commerce
 
-## Getting Started
+## Configure environment variables
 
-First, run the development server:
+Go to .env.template, then remove the ".template" from the filename and update all the variables.
 
-```bash
-npm run dev
-# or
-yarn dev
+### Env variables explanation
+
+```text
+MONGO_DB= Mongo db connection string [Example: mongodb://localhost:27017/stdfdb]
+NEXT_PUBLIC_TAX_RATE= Tax rate used to calculate fees [Example: 0.21]
+NEXT_PUBLIC_SITE_URL= The site URL, used for the API and OG images [Example:  http://localhost:3000]
+
+GITHUB_SECRET= Github Oauth credentials, more info: https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app
+GITHUB_CLIENT_ID= Github Oauth credentials 
+
+NEXTAUTH_URL= Same as SITE_URL [Example:  http://localhost:3000]
+NEXTAUTH_SECRET= Secret used for the nextauth JWT, needs to be a random and complex value
+JWT_SECRET= Same as NEXTAUTH_SECRET
+
+STRIPE_SECRET_KEY= Stripe keys used for processing payments, more info: https://stripe.com/
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY= Stripe keys used for processing payments, more info: https://stripe.com/
+STRIPE_WEBHOOK_KEY= Stripe webhook key, (read stripe documentation for more info)
+
+CLOUDINARY_URL= Cloudinary url, used for uploading product images, more info: https://cloudinary.com/
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run the development server
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+First, run the mongo db container
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+docker compose up -d
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Second, run the development server
 
-## Learn More
+```bash
+npm i
+npm run dev 
+```
 
-To learn more about Next.js, take a look at the following resources:
+Then go to [http://localhost:3000/api/seed](seed api EP) to load default data into the DB.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Finally open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### More info
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+By default all the users created with github are admins.
