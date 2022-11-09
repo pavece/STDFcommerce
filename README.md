@@ -1,4 +1,7 @@
+
 # STDF commerce
+
+![Stdf banner](https://res.cloudinary.com/dnh0go0q2/image/upload/v1668029774/Stdf_banner_u4kqag.jpg)
 
 ## Configure environment variables
 
@@ -48,3 +51,4 @@ Finally open [http://localhost:3000](http://localhost:3000) with your browser to
 ### More info
 
 By default all the users created with github are admins.
+As a matter of curiosity, the test products images are created with stable diffusion.
